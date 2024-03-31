@@ -1,0 +1,23 @@
+.loginContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.loginFormContainer {
+    width: 80%;
+    height: 90vh;
+    /* height: 40%; */
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    margin-bottom: 50px;
+    padding-top: 70px;
+}
+
+.loginFormTitle {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 36px;
+    font-weight: bold;
+}

@@ -1,0 +1,79 @@
+/* ProductDetail.css */
+.d-flex {
+    display: flex;
+}
+
+.align-items-center {
+    align-items: center;
+}
+
+.justify-content-center {
+    justify-content: center;
+}
+
+.h-8 {
+    height: 2rem;
+}
+
+.w-8 {
+    width: 2rem;
+}
+
+.border {
+    border: 1px solid #dee2e6 !important;
+}
+
+.duration-100 {
+    transition-duration: 0.1s;
+}
+
+.hover\:bg-light:hover {
+    background-color: #f8f9fa !important;
+}
+
+.active\:bg-light:active {
+    background-color: #f8f9fa !important;
+}
+
+.focus\:bg-light:focus {
+    background-color: #f8f9fa !important;
+}
+
+.hover\:bg-light:hover,
+.active\:bg-light:active,
+.focus\:bg-light:focus {
+    background-color: #f8f9fa !important;
+}
+
+.active\:border-gray-500:active {
+    border-color: #adb5bd !important;
+}
+
+.focus\:border-gray-500:focus {
+    border-color: #adb5bd !important;
+}
+
+.active\:ring-gray-500:active {
+    box-shadow: 0 0 0 0.2rem rgba(156, 163, 175, 0.5) !important;
+}
+
+.focus\:ring-gray-500:focus {
+    box-shadow: 0 0 0 0.2rem rgba(156, 163, 175, 0.5) !important;
+}
+
+ProductDetail.css .btn-purple {
+    background-color: #6c63ff;
+    color: #fff;
+    border-color: #6c63ff;
+}
+
+.btn-yellow {
+    background-color: #ffc107;
+    color: #000;
+    border-color: #ffc107;
+}
+
+/* Additional CSS rules for styling your React components */
+.del {
+    text-decoration: line-through;
+}

@@ -1,0 +1,66 @@
+.outCardContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+.cardContainer {
+    width: 1059px;
+    height: 934px;
+    /* border: 2px solid red; */
+    display: flex;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    /* align-items: center; */
+
+
+}
+
+/* StaticCard.css */
+.card {
+    /* border: 2px solid red; */
+    width: 311px;
+    height: 398px;
+    border-radius: 13px;
+    border: 1px solid #dbded9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    position: relative;
+    margin-top: 20px;
+    margin-left: 10px;
+    /* margin: 20px; */
+}
+
+.card-image {
+    /* width: 338.723px; */
+    height: 333px;
+    border-radius: 9px 9px 0 0;
+    object-fit: cover;
+}
+
+.card-buttons {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+}
+
+.card-buttons button {
+    background-color: #5BE719;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 35px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card-buttons button:hover {
+    background-color: #f7d40d;
+}
