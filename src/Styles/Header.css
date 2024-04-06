@@ -2,42 +2,37 @@
 
 @import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-
-}
-
-.header {
-  width: 100%;
-  height: 142px;
-  /* border: 2px solid red; */
-}
-
-.nav1 {
-  padding: 10px;
+.navbar {
   display: flex;
-  width: 1120px;
-  /* You can adjust this width as needed */
-  margin: 0 auto;
-  /* Centers the div horizontally */
-  height: 64px;
-  align-items: center;
-  /* border: 2px solid red; */
   justify-content: space-between;
-  gap: 10px;
-  flex-shrink: 0;
-  flex-wrap: wrap;
+  align-items: center;
+  background-color: #000;
+  /* Assuming a black background */
+  padding: 10px 20px;
+  color: white;
+  position: sticky;
+  top: 0;
+  /* background-color: #ffffff; */
+  padding: 20px;
+  z-index: 1000;
 }
 
-.logoContainer {
-  width: 214px;
-  height: 42px;
+.navbar .logo {
+  font-size: 24px;
+  font-weight: bold;
+  /* color: green; */
+  /* Logo text color */
+}
+
+.navbar .nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
 }
 
 .logo {
-  color: #5be719;
+  /* color: #5be719; */
+  color: white;
   font-family: "Sedgwick Ave Display";
   font-size: 32px;
   font-style: normal;
@@ -46,68 +41,86 @@
   margin-bottom: 0px;
 }
 
-.certified {
-  color: #000;
-  font-family: Poppins;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+.navbar .nav-links li {
+  position: relative;
+
 }
 
-.nav2 {
-  /* display: flex;
-  justify-content: space-between; */
-  /* padding: 10px; */
-  display: flex;
-  width: 1120px;
-  /* You can adjust this width as needed */
-  margin: 0 auto;
-  /* Centers the div horizontally */
-  height: 64px;
-  align-items: center;
-  /* border: 2px solid red; */
-  justify-content: space-between;
-  gap: 10px;
-  flex-shrink: 0;
-  flex-wrap: wrap;
+.navbar .nav-links {
+
+  margin-bottom: 0;
 }
 
-ul {
-  list-style-type: none;
-  padding-left: 0px;
-  padding: 0px;
-  margin-bottom: 0px;
-}
-
-li {
-  display: inline;
-
-  font-family: Poppins;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-}
-
-.nav2 a {
+.navbar .nav-links a {
+  color: white;
+  /* Link text color */
   text-decoration: none;
   padding: 5px 10px;
-  color: #000;
+  transition: color 0.3s;
+  margin-bottom: 0;
 }
 
-.create-account,
-.login {
-  margin-right: 10px;
+.navbar .nav-links a:hover {
+  color: #aaa;
+  /* Link hover color */
 }
 
-.nav2 a:hover {
-  text-decoration: underline;
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  z-index: 1;
 }
 
-.horizontal-line {
-  width: 100%;
-  height: 2px;
-  /* background-color: red; */
-  background: #f5f5f5;
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
 }
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+
+.nav-icons {
+  display: flex;
+  gap: 20px;
+}
+
+.icon {
+  /* Style your icons here */
+}
+
+.search-container {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 30%;
+  margin-top: 5px;
+  margin-right: 35px;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Set initial opacity to 0 to hide the container */
+  opacity: 0;
+  /* Apply transition to opacity property */
+  transition: opacity 0.5s ease-out;
+}
+
+.search-container input[type="text"] {
+  width: calc(100% - 20px);
+  padding: 8px;
+  border: none;
+  outline: none;
+}
+
+/* Apply opacity to show the container */
+.search-container.visible {
+  opacity: 1;
+}
+
+/* Add any additional styling as needed */

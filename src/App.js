@@ -22,6 +22,9 @@ import { OtpProvider } from "./components/OtpContext";
 import ResetOTP from "./pages/ResetOTP";
 import AddtoCart from "./pages/AddtoCart";
 import Cart from "./components/Cart";
+import UserProfile from "./components/UserProfile";
+import Orders from "./components/Orders";
+import Review from "./components/Review";
 
 function App() {
   return (
@@ -32,6 +35,9 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/help" element={<Help />} />
           <Route path="/register" element={<CreateAccount />} />
+          <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/orders" element={<Orders />} />
+          <Route path="/review" element={<Review />} />
           <Route path="/otpPage" element={<OtpPage />} />
           <Route path="/resetOtp" element={<ResetOTP />} />
           <Route path="/login" element={<Login />} />

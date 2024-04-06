@@ -17,13 +17,14 @@
 }
 
 /* Styling the chat pop-up */
+
 .chat-popup {
     position: fixed;
     bottom: 80px;
     /* Adjust distance from the bottom as needed */
     right: 30px;
     /* Adjust distance from the right as needed */
-    width: 400px;
+    width: 700px;
     /* Adjust width as needed */
     height: 500px;
     /* Adjust height as needed */

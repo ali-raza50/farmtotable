@@ -1,0 +1,70 @@
+.serviceContainer {
+    display: flex;
+    /* border: 2px solid #000; */
+    padding: 0;
+    background-color: #F2F4F5;
+    position: relative;
+    overflow: hidden;
+    /* Overall border */
+    /* margin: 20px; */
+}
+
+
+.image-side {
+    width: 40%;
+    height: 780px;
+    /* Adjust based on your design needs */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+
+.text-side {
+    /* border: 2px solid #000; */
+    width: 70%;
+    padding: 20px;
+
+    color: #000;
+    /* If you need scroll for text */
+    overflow-y: auto;
+}
+
+/* Add additional styling as needed */
+.section-heading p {
+    font-size: 14px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 0;
+}
+
+.section-heading h2 {
+    margin-bottom: 10px;
+    font-size: 36px;
+    margin-left: -3px;
+    color: #000;
+}
+
+.section-heading {
+    position: relative;
+    z-index: 1;
+    margin-bottom: 50px;
+}
+
+img {
+    height: auto;
+    max-width: 100%;
+}
+
+p {
+    font-family: "Karla", sans-serif;
+    color: #707070;
+    font-size: 14px;
+    line-height: 1.7;
+    font-weight: 400;
+}
+
+.single-service-area .service-title img {
+    margin-right: 15px;
+}

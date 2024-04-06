@@ -1,0 +1,50 @@
+#chat3 .form-control {
+    border-color: transparent;
+}
+
+#chat3 .form-control:focus {
+    border-color: transparent;
+    box-shadow: inset 0px 0px 0px 1px transparent;
+}
+
+.badge-dot {
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+    margin-left: 2.9rem;
+    margin-top: -0.75rem;
+}
+
+.vertical-line {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #ccc;
+    /* Color of the vertical line */
+}
+
+@media (max-width: 768px) {
+    .vertical-line {
+        display: none;
+        /* Hide the vertical line on smaller screens */
+    }
+}
+
+.horizontal-line {
+    border-top: 1px solid #ccc;
+    /* Color and width of the horizontal line */
+}
+
+/* Hide scroll bars */
+.chat-popup {
+    overflow: hidden;
+}
+
+/* Enable scrolling */
+.chat-popup-content {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* Enable smooth scrolling on iOS devices */
+}

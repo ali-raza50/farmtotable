@@ -1,0 +1,98 @@
+.product-review-container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Other styles remain the same */
+
+.product-container {
+    display: flex;
+    align-items: center;
+    /* Align items vertically */
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.product-image {
+    width: 100px;
+    /* Image width */
+    height: 100px;
+    /* Image height */
+    object-fit: cover;
+    border-radius: 50%;
+    /* Make the image round */
+    border: 1px solid #ddd;
+}
+
+.product-details {
+    flex: 1;
+}
+
+.product-title {
+    font-size: 20px;
+    /* Adjusted for smaller text */
+    font-weight: bold;
+    margin-bottom: 4px;
+    /* Reduced margin */
+}
+
+.product-description {
+    font-size: 14px;
+    /* Smaller text */
+    color: #666;
+}
+
+
+.rating-container {
+    margin-bottom: 20px;
+}
+
+.rating-prompt {
+    font-size: 18px;
+    margin-bottom: 8px;
+}
+
+.star-container {
+    font-size: 25px;
+}
+
+.star {
+    cursor: pointer;
+    margin-right: 5px;
+    transition: color 0.3s;
+}
+
+.filled {
+    color: #ffc107;
+}
+
+.empty {
+    color: #e4e5e9;
+}
+
+.rating-text {
+    margin-top: 10px;
+    font-size: 18px;
+    color: #666;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px 20px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #003d82;
+}
