@@ -3,12 +3,17 @@ import { Container, Row, Col } from "react-bootstrap";
 import "../Styles/benefits.css";
 import farmimg from "../img/farmimg.png";
 import digger from "../img/digger.png";
+
 const Benefits = () => {
   useEffect(() => {
     // Ensure the animation is applied on component mount
     const benefitsAreas = document.querySelectorAll(".single-benefits-area");
     benefitsAreas.forEach((area) => {
       area.classList.add("fadeInUp");
+      // After animation ends, remove the class to keep elements visible
+      // area.addEventListener("animationend", () => {
+      //   area.classList.remove("fadeInUp");
+      // });
     });
   }, []);
 
@@ -17,15 +22,12 @@ const Benefits = () => {
       <Container>
         <Row>
           <Col xs={12}>
-            <div
-              className="benefits-thumbnail mb-5"
-              style={{ marginTop: "100px" }}
-            >
+            <div className="benefits-thumbnail mb-5">
               <img src={farmimg} alt="" />
             </div>
           </Col>
         </Row>
-        <Row className="justify-content-center ">
+        <Row className="justify-content-center">
           <Col xs={12} sm={4} lg>
             <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
               <img src={digger} alt="" />
@@ -56,8 +58,6 @@ const Benefits = () => {
               <h5>Milk Services</h5>
             </div>
           </Col>
-
-          {/* Repeat for other columns */}
         </Row>
       </Container>
     </section>

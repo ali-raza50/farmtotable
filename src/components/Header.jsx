@@ -1,65 +1,100 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "../Styles/Header.css";
-
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
-import Button from "react-bootstrap/Button";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import {
   faShoppingCart,
   faUserCog,
   faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
-
-import Pakistan from "../img/Pakistan.png";
-import farmLogo from "../img/farmtotablelogo.webp";
-import { Link, NavLink } from "react-router-dom";
-
 const Header = () => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  const closeMenu = () => {
+    setIsMenuOpen(false);
+  };
 
   const toggleSearchVisibility = () => {
     setIsSearchVisible(!isSearchVisible);
   };
+
   return (
     <nav className="navbar">
-      <div className="logo">Farm to Table </div>
-      <ul className="nav-links">
-        <li>
-          <a href="/">Home</a>
-        </li>
-        <li>
-          <a href="/about">About</a>
-        </li>
-        <li>
-          <a href="/contact">Contact</a>
-        </li>
-        <li>
-          <a href="/register">Register</a>
-        </li>
-        <li>
-          <a href="/login">Login</a>
-        </li>
-        {isSearchVisible && (
-          <div
-            className={`search-container ${isSearchVisible ? "visible" : ""}`}
-          >
-            <input type="text" placeholder="Search..." />
-          </div>
-        )}
-        <li>
-          <a href="#" onClick={toggleSearchVisibility}>
-            <FontAwesomeIcon icon={faSearch} />
-          </a>
-        </li>
-        <li>
-          <a href="/search">
-            <FontAwesomeIcon icon={faShoppingCart} />
-          </a>
-        </li>
-      </ul>
+      {/* Logo */}
+      <div className="logo">Farm to Table</div>
+
+      {/* Navigation Links and Hamburger Icon */}
+      <div className="nav-right">
+        <ul className="nav-links">
+          <li>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="/about">About</a>
+          </li>
+          <li>
+            <a href="/contact">Contact</a>
+          </li>
+          <li>
+            <a href="/register">Register</a>
+          </li>
+          <li>
+            <a href="/login">Login</a>
+          </li>
+          {isSearchVisible && (
+            <div
+              className={`search-container ${isSearchVisible ? "visible" : ""}`}
+            >
+              <input type="text" placeholder="Search..." />
+            </div>
+          )}
+          <li>
+            <a href="#" onClick={toggleSearchVisibility}>
+              <FontAwesomeIcon icon={faSearch} />
+            </a>
+          </li>
+          <li>
+            <a href="/search">
+              <FontAwesomeIcon icon={faShoppingCart} />
+            </a>
+          </li>
+        </ul>
+
+        {/* Search */}
+        <div className="search-container"></div>
+
+        {/* Hamburger menu icon */}
+        <div className="menu-icon" onClick={toggleMenu}>
+          <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
+        </div>
+      </div>
+
+      {/* Sidebar menu */}
+      <div className={`sidebar ${isMenuOpen ? "open" : ""}`}>
+        {/* Close button */}
+        <button className="close-btn" onClick={closeMenu}>
+          <FontAwesomeIcon icon={faTimes} />
+        </button>
+
+        {/* Sidebar links */}
+        <ul className="sidebar-links">
+          <li>
+            <a href="/sellerRegister">Become a Seller</a>
+          </li>
+          <li>
+            <a href="/manage-listings">Manage Your Listings</a>
+          </li>
+          <li>
+            <a href="/sellerProfile">Manage Your Account</a>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 };

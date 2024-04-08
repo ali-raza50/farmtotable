@@ -1,0 +1,73 @@
+.team-section {
+    padding: 20px 0;
+    text-align: center;
+    background-color: #F4F4F4;
+}
+
+.section-heading {
+    /* margin-bottom: 40px; */
+    animation: fadeInDown 1s both;
+    /* Keyframe animation for section heading */
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translate3d(0, -100%, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
+}
+
+.single-team-member {
+    display: flex;
+    /* Use flexbox */
+    flex-direction: column;
+    /* Stack children vertically */
+    align-items: center;
+    /* Center children horizontally */
+    text-align: center;
+    margin-bottom: 30px;
+    transition: transform 0.3s;
+    /* Transition for hover effect */
+}
+
+.single-team-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    /* margin-bottom: 20px; */
+    transition: transform 0.3s, box-shadow 0.3s;
+    /* Transition for hover effect */
+}
+
+.single-team-member:hover img {
+    transform: scale(1.05);
+    /* Scale image on hover */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Shadow effect on hover */
+}
+
+.single-team-member h3 {
+    font-size: 20px;
+    color: blue;
+    margin-top: 10px;
+}
+
+.single-team-member p {
+    color: #555;
+    margin-bottom: 0;
+}
+
+.team-description {
+    /* margin-top: 15px; */
+}
+
+/* Supervisor styles can be more prominent */
+.single-team-member.supervisor {
+    transform: scale(1.1);
+    /* Make supervisor stand out */
+}

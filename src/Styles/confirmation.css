@@ -1,0 +1,62 @@
+.confirmation-container {
+    width: 80%;
+    margin: 0 auto;
+    /* Center the container horizontally */
+    padding: 20px;
+    /* Add padding to the container */
+    /* background-color: #ffffff; */
+    /* Set background color */
+    border-radius: 10px;
+    border: 2px solid #eee;
+    /* Add border radius */
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    /* Add box shadow */
+}
+
+.confirmation-container h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: black;
+    /* Set heading font size, margin, and color */
+}
+
+.confirmation-container p {
+    margin-bottom: 15px;
+    /* Add margin bottom to paragraphs */
+}
+
+.confirmation-container ul {
+    margin-bottom: 15px;
+    /* Add margin bottom to unordered list */
+}
+
+.confirmation-container li {
+    margin-bottom: 5px;
+    /* Add margin bottom to list items */
+}
+
+.confirmation-container label {
+    display: flex;
+    align-items: center;
+    /* Change from 'start' to 'center' */
+}
+
+.confirmation-container input[type="checkbox"] {
+    margin-right: 8px;
+    width: 2%;
+    /* Adjust as needed for spacing */
+}
+
+.confirmation-container button {
+    padding: 10px 20px;
+    /* Add padding to button */
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.confirmation-container button:hover {
+    background-color: #0056b3;
+}

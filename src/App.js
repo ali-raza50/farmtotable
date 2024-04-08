@@ -25,6 +25,8 @@ import Cart from "./components/Cart";
 import UserProfile from "./components/UserProfile";
 import Orders from "./components/Orders";
 import Review from "./components/Review";
+import SellerReg from "./components/SellerReg";
+import SellerProfile from "./components/SellerProfile";
 
 function App() {
   return (
@@ -32,6 +34,8 @@ function App() {
       <OtpProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/sellerRegister" element={<SellerReg />} />
+          <Route path="/sellerProfile" element={<SellerProfile />} />
           <Route path="/about" element={<About />} />
           <Route path="/help" element={<Help />} />
           <Route path="/register" element={<CreateAccount />} />

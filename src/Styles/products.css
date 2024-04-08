@@ -43,16 +43,74 @@
 }
 
 .single-product-area .product-thumbnail .product-meta-data {
-    -webkit-transition-duration: 500ms;
-    -o-transition-duration: 500ms;
-    transition-duration: 500ms;
     position: absolute;
     width: 100%;
     text-align: center;
     bottom: 30px;
     opacity: 0;
     visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+
+.single-product-area .product-thumbnail:hover .product-meta-data {
+    opacity: 1;
+    visibility: visible;
+}
+
+.single-product-area .product-meta-data a {
+
+    background-color: #28a745;
+    /* Green background for icons */
+    color: white;
+    /* White icon color */
+    border-radius: 50%;
+    /* Circular icons */
+    padding: 10px;
+    /* Icon padding */
+    margin: 0 10px;
+    /* Margin between icons */
+    display: inline-block;
+    /* Center icons */
+    transition: all 0.3s ease;
+}
+
+/* Initially hide tooltips */
+.single-product-area .product-meta-data a::after {
+    content: attr(title);
+    position: absolute;
+    padding: 5px;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    /* Adjust the position of the tooltip */
+    white-space: nowrap;
+    background-color: #333;
+    color: #fff;
+    font-size: 12px;
+    border-radius: 3px;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 2;
+    /* Ensure tooltip is above other elements */
+}
+
+/* Show tooltip on icon hover */
+.single-product-area .product-meta-data a:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Transition for hover state */
+.single-product-area .product-meta-data a:hover {
+    background-color: #34a853;
+    /* Slightly different green to indicate hover */
+    color: white;
+    transform: scale(1.1);
+    /* Slightly grow the icon */
+}
+
+
 
 .single-product-area .product-desc {
     position: relative;
@@ -64,9 +122,43 @@
     margin-bottom: 5px;
     font-weight: 400;
     display: block;
+    color: #707070;
+    transition: color 0.3s ease;
+}
+
+.single-product-area .product-desc .product-title:hover,
+.single-product-area .product-desc .product-title:focus {
+    color: green;
+    text-decoration: none;
 }
 
 .single-product-area .product-desc .price {
     margin-bottom: 0;
     font-size: 18px;
+}
+
+.single-product-area .product-desc .price span {
+    text-decoration: line-through;
+    color: #707070;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.famie-btn {
+    background-color: #77b122;
+    -webkit-transition-duration: 500ms;
+    -o-transition-duration: 500ms;
+    transition-duration: 500ms;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    min-width: 160px;
+    height: 50px;
+    color: #ffffff;
+    border-radius: 0;
+    padding: 0 30px;
+    font-size: 16px;
+    line-height: 48px;
+    font-weight: 700;
+    text-transform: uppercase;
 }

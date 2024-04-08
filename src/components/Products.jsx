@@ -1,7 +1,10 @@
 import React from "react";
 import decor2 from "../img/decor2.png";
 import honey from "../img/honey.png";
+import desighee from "../img/desighee.png";
+import butter from "../img/butter.png";
 import "../Styles/products.css";
+import { FaShoppingCart, FaHeart } from "react-icons/fa";
 const Products = () => {
   return (
     <section
@@ -40,7 +43,7 @@ const Products = () => {
                     data-placement="top"
                     title="Favourite"
                   >
-                    <i className="icon_heart_alt"></i>
+                    <FaHeart />
                   </a>
                   <a
                     href="/"
@@ -48,16 +51,137 @@ const Products = () => {
                     data-placement="top"
                     title="Add To Cart"
                   >
-                    <i className="icon_cart_alt"></i>
+                    <FaShoppingCart />
                   </a>
                 </div>
               </div>
               <div className="product-desc text-center pt-4">
                 <a href="#/" className="product-title">
-                  Honey
+                  Pure Honey
                 </a>
-                <h6 className="price">Rs 17.99</h6>
+                <h6 className="price">
+                  <span>$29.99</span> $19.99
+                </h6>
               </div>
+            </div>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-3">
+            <div
+              className="single-product-area mb-50 wow fadeInUp"
+              data-wow-delay="100ms"
+            >
+              <div className="product-thumbnail">
+                <img src={desighee} alt="honey" />
+
+                <div className="product-meta-data">
+                  <a
+                    href="/"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Favourite"
+                  >
+                    <FaHeart />
+                  </a>
+                  <a
+                    href="/"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add To Cart"
+                  >
+                    <FaShoppingCart />
+                  </a>
+                </div>
+              </div>
+              <div className="product-desc text-center pt-4">
+                <a href="#/" className="product-title">
+                  Desi Ghee
+                </a>
+                <h6 className="price">$19.99</h6>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-3">
+            <div
+              className="single-product-area mb-50 wow fadeInUp"
+              data-wow-delay="100ms"
+            >
+              <div className="product-thumbnail">
+                <img src={butter} alt="honey" />
+
+                <div className="product-meta-data">
+                  <a
+                    href="/"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Favourite"
+                  >
+                    <FaHeart />
+                  </a>
+                  <a
+                    href="/"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add To Cart"
+                  >
+                    <FaShoppingCart />
+                  </a>
+                </div>
+              </div>
+              <div className="product-desc text-center pt-4">
+                <a href="#/" className="product-title">
+                  Butter
+                </a>
+                <h6 className="price">$19.99</h6>
+              </div>
+            </div>
+          </div>
+          <div className="col-12 col-sm-6 col-lg-3">
+            <div
+              className="single-product-area mb-50 wow fadeInUp"
+              data-wow-delay="100ms"
+            >
+              <div className="product-thumbnail">
+                <img src={honey} alt="honey" />
+
+                <span className="product-tags bg-danger">sale</span>
+
+                <div className="product-meta-data">
+                  <a
+                    href="/"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Favourite"
+                  >
+                    <FaHeart />
+                  </a>
+                  <a
+                    href="/"
+                    data-toggle="tooltip"
+                    data-placement="top"
+                    title="Add To Cart"
+                  >
+                    <FaShoppingCart />
+                  </a>
+                </div>
+              </div>
+              <div className="product-desc text-center pt-4">
+                <a href="#/" className="product-title">
+                  Pure Honey
+                </a>
+                <h6 className="price">$19.99</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="row mt-5">
+          <div className="col-12">
+            <div
+              className="gotoshop-btn text-center wow fadeInUp"
+              data-wow-delay="900ms"
+            >
+              <a href="shop.html" class="btn famie-btn">
+                Go to Store
+              </a>
             </div>
           </div>
         </div>

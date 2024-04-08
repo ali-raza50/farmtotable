@@ -56,3 +56,47 @@ p {
     color: #ffffff;
     /* Adjust button text color on hover */
 }
+
+.welcome-content {
+    display: none;
+}
+
+.welcome-content.active {
+    display: block;
+}
+
+.text-container .slide-in-top {
+    animation-name: slideInTop;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes slideInTop {
+    0% {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.text-container .slide-in-bottom {
+    animation-name: slideInBottom;
+    animation-duration: 1s;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes slideInBottom {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

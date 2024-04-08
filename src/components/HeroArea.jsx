@@ -1,47 +1,105 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Rellax from "rellax";
 import "../Styles/heroArea.css"; // Import your CSS file for styling
+import hero from "../img/hero.png";
 import hero1 from "../img/hero1.png";
 import hero2 from "../img/hero2.png";
 import hero3 from "../img/hero3.png";
 import hero4 from "../img/hero4.png";
+import hero5 from "../img/hero5.png";
 
 const HeroArea = () => {
+  // Array of image URLs
+  const images = [hero, hero1, hero2, hero3, hero4, hero5];
+  const texts = [
+    {
+      title: "Welcome to Farm to Table",
+      description:
+        "Discover fresh, locally sourced produce straight from our farm to your table. We believe in sustainable farming practices and bringing you the best quality food.",
+    },
+    {
+      title: "Farm Fresh Delicacies",
+      description:
+        "Indulge in the goodness of farm-fresh produce. From fruits and vegetables to dairy and meats, we offer a wide range of delicious options for you and your family.",
+    },
+    {
+      title: "Support Local Farmers",
+      description:
+        "By choosing Farm to Table, you're supporting local farmers and their communities. We work closely with small-scale farmers to bring you the freshest ingredients.",
+    },
+    {
+      title: "Healthy and Nutritious",
+      description:
+        "Eating healthy has never been easier with our selection of nutritious foods. From organic fruits and veggies to grass-fed meats, we prioritize your health and well-being.",
+    },
+    {
+      title: "Connect with Nature",
+      description:
+        "Escape the hustle and bustle of city life and connect with nature at our farm. Experience the beauty of rural living while enjoying fresh air and scenic views.",
+    },
+    {
+      title: "Join the Farming Revolution",
+      description:
+        "Be a part of the farming revolution with Farm to Table. Embrace sustainable practices and enjoy delicious, wholesome food that nourishes your body and soul.",
+    },
+  ];
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   useEffect(() => {
     const rellax = new Rellax(".rellax"); // Initialize Rellax with the class name of your elements
 
+    // Function to change the image after 5 seconds
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === images.length - 1 ? 0 : prevIndex + 1
+      );
+    }, 3000);
+
     return () => {
+      clearInterval(intervalId); // Clean up interval on component unmount
       rellax.destroy(); // Clean up Rellax instance on component unmount
     };
   }, []);
-
-  // Array of image URLs
-  const images = [hero1, hero2, hero3, hero4];
 
   return (
     <div className="hero-area">
       {images.map((image, index) => (
         <div
           key={index}
-          className="welcome-content rellax"
+          className={`welcome-content rellax ${
+            index === currentImageIndex ? "active" : ""
+          }`}
           data-rellax-speed="-4" // Adjust the speed as per your requirement
-          style={{ backgroundImage: `url(${image})` }}
+          style={{
+            backgroundImage: `url(${image})`,
+            transition: "opacity 1s ease-in-out", // Apply transition for smooth sliding effect
+            opacity: index === currentImageIndex ? 1 : 0, // Control opacity based on active index
+          }}
         >
           <div className="container h-100">
             <div className="row h-100 align-items-center">
               <div className="col-12 col-lg-10">
-                <div>
-                  <h2>
-                    The hearth of the farm is the true center of our universe.
+                <div className="text-container">
+                  <h2
+                    className={`title ${
+                      index === currentImageIndex ? "slide-in-top" : ""
+                    }`}
+                  >
+                    {texts[index].title}
                   </h2>
-                  <p>
-                    Mauris vestibulum dolor nec lacinia facilisis. Fusce
-                    interdum sagittis volutpat. Praesent eget varius ligula,
-                    malesuada eleifend purus. Aenean euismod est at mauris
-                    mollis ultricies. Morbi arcu mi, dictum eu luala, dapibus
-                    interdum mollis.
+                  <p
+                    className={`description ${
+                      index === currentImageIndex ? "slide-in-bottom" : ""
+                    }`}
+                  >
+                    {texts[index].description}
                   </p>
-                  <a href="#" className="btn famie-btn mt-4">
+                  <a
+                    href="#"
+                    className={`btn famie-btn mt-4 ${
+                      index === currentImageIndex ? "slide-in-bottom" : ""
+                    }`}
+                  >
                     Contact Us
                   </a>
                 </div>

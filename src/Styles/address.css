@@ -1,0 +1,51 @@
+.address-container {
+
+    width: 80%;
+    margin: 0 auto;
+    /* Center the form horizontally */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+    padding: 20px;
+}
+
+.address-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.form-group {
+    flex-basis: calc(50% - 10px);
+    /* Two fields per row with a small gap */
+    margin-bottom: 10px;
+    /* Add margin bottom between form groups */
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 4px;
+    /* Add margin bottom below labels */
+}
+
+input,
+select {
+    width: 90%;
+    padding: 8px;
+    margin-top: 4px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+
+
+
+
+.address-heading {
+    /* text-align: center; */
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: black;
+    /* Add margin bottom to create space between heading and form */
+}

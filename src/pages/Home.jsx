@@ -7,6 +7,10 @@ import Benefits from "../components/Benefits";
 import AboutUsArea from "./About";
 import ServicesArea from "../components/ServiceArea";
 import Products from "../components/Products";
+import NewsLetter from "../components/NewsLetter";
+import FarmingAnimal from "../components/FarmingAnimals";
+import TeamSection from "../components/TeamsSections";
+import ContactUs from "./ContactUs";
 const Home = () => {
   return (
     <div>
@@ -17,8 +21,12 @@ const Home = () => {
         <AboutUsArea />
         <ServicesArea />
         <Products />
+        <NewsLetter />
+        <FarmingAnimal />
+        <TeamSection />
+        <ContactUs />
         {/* <HomeCentreContent /> */}
-        {/* <Footer /> */}
+        <Footer />
       </div>
     </div>
   );
