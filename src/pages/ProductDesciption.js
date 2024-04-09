@@ -9,7 +9,9 @@ import Footer from "../components/Footer";
 import Butter from "../img/Butter1.png";
 import ChatIcon from "../components/ChatIcon";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const ProductDesciption = () => {
+  const navigate = useNavigate();
   const ProductDesciptionItem = {
     images: [
       {
@@ -43,18 +45,15 @@ const ProductDesciption = () => {
           "https://images.pexels.com/photos/3910071/pexels-photo-3910071.jpeg?auto=compress&cs=tinysrgb&w=600",
       },
     ],
-    title: "Butter Details",
+
+    name: "Milk Description",
     reviews: "150",
     availability: true,
-    brand: "apex",
-    category: "Sofa",
-    sku: "BE45VGTRK",
+    brand: "Olper",
     price: 450,
     previousPrice: 599,
     description:
       "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quidem exercitationem voluptate sint eius ea assumenda provident eos repellendus qui neque! Velit ratione illo maiores voluptates commodi eaque illum, laudantium non!",
-    size: ["XS", "S", "M", "L", "XL"],
-    color: ["gray", "violet", "red"],
   };
   const plusMinuceButton =
     "flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500";
@@ -76,8 +75,8 @@ const ProductDesciption = () => {
         {/* description  */}
 
         <div className="mx-auto px-5 lg:px-5">
-          <h2 className="pt-3 text-2xl font-bold lg:pt-0">
-            {ProductDesciptionItem.title}
+          <h2 className="pt-3 text-2xl font-bold text-black lg:pt-0">
+            {ProductDesciptionItem.name}
           </h2>
           <div className="mt-1">
             <div className="flex items-center">
@@ -105,16 +104,7 @@ const ProductDesciption = () => {
             Brand:{" "}
             <span className="font-normal">{ProductDesciptionItem.brand}</span>
           </p>
-          <p className="font-bold">
-            Cathegory:{" "}
-            <span className="font-normal">
-              {ProductDesciptionItem.category}
-            </span>
-          </p>
-          <p className="font-bold">
-            SKU:{" "}
-            <span className="font-normal">{ProductDesciptionItem.sku}</span>
-          </p>
+
           <p className="mt-4 text-4xl font-bold text-violet-900">
             ${ProductDesciptionItem.price}{" "}
             <span className="text-xs text-gray-400 line-through">
@@ -124,35 +114,7 @@ const ProductDesciption = () => {
           <p className="pt-0 text-sm leading-5 text-gray-500">
             {ProductDesciptionItem.description}
           </p>
-          <div className="mt-6">
-            <p className="pb-0 text-xs text-gray-500">Size</p>
-            <div className="flex gap-1">
-              {ProductDesciptionItem.size.map((x, index) => {
-                return (
-                  <div
-                    key={index}
-                    style={{ color: "red" }}
-                    className="flex h-8 w-8 cursor-pointer items-center justify-center border duration-100 hover:bg-neutral-100 focus:ring-2 focus:ring-gray-500 active:ring-2 active:ring-gray-500"
-                  >
-                    {x}
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-          <div className="mt-3">
-            <p className="pb-2 text-xs text-gray-500">Color</p>
-            <div className="flex gap-1">
-              {ProductDesciptionItem.color.map((x, index) => {
-                return (
-                  <div
-                    key={index}
-                    className={`h-8 w-8 cursor-pointer border border-gray bg-${x}-600 focus:ring-2 focus:ring-${x}-500 active:ring-2 active:ring-${x}-500`}
-                  />
-                );
-              })}
-            </div>
-          </div>
+
           <div className="mt-3">
             <p className="pb-2 text-xs text-gray-500">Quantity</p>
             <div className="flex">
@@ -163,16 +125,22 @@ const ProductDesciption = () => {
               <button className={`${plusMinuceButton}`}> +</button>
             </div>
           </div>
+
           <div className="mt-7 flex flex-row items-center gap-6">
-            <button className="flex h-12 w-1/3 items-center justify-center bg-violet-900 text-white duration-100 hover:bg-blue-800">
-              <BiShoppingBag className="mx-2" />
-              Add to cart
+            <button
+              onClick={() => navigate("/cart")}
+              className="flex h-12 w-1/3 items-center justify-center bg-green-900 text-white duration-100 hover:bg-black focus:outline-none"
+            >
+              <BiShoppingBag className="mr-2" />
+              <span className="whitespace-nowrap"> Add to cart</span>
             </button>
-            <button className="flex h-12 w-1/3 items-center justify-center bg-amber-400 duration-100 hover:bg-yellow-300">
-              <AiOutlineHeart className="mx-2" />
-              Wishlist
+
+            <button className="flex h-12 w-1/3 items-center bg-green-900 text-white duration-100  hover:bg-black focus:outline-none">
+              <AiOutlineHeart className="mr-2" />
+              <span className="whitespace-nowrap"> Wishlist</span>
             </button>
           </div>
+
           <ChatIcon />
         </div>
       </section>

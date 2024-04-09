@@ -64,17 +64,20 @@
 .sidebar {
   position: fixed;
   top: 0;
-  right: 0;
-  width: 300px;
+  left: 0;
+  /* Changed from right: 0; to slide in from the left */
+  width: 250px;
   height: 100vh;
   background-color: #333;
-  transform: translateX(100%);
+  transform: translateX(-100%);
+  /* Changed to hide the sidebar to the left */
   transition: transform 0.3s ease;
 }
 
 .sidebar.open {
   transform: translateX(0);
 }
+
 
 .sidebar-links {
   list-style: none;
@@ -110,4 +113,8 @@
   color: #fff;
   font-size: 20px;
   cursor: pointer;
+}
+
+.no-scroll {
+  overflow: hidden;
 }

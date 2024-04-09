@@ -27,6 +27,9 @@ import Orders from "./components/Orders";
 import Review from "./components/Review";
 import SellerReg from "./components/SellerReg";
 import SellerProfile from "./components/SellerProfile";
+import AnimalDescription from "./pages/AnimalDescription";
+import MySellerProduct from "./components/MySellerProduct";
+import UpdateProductForm from "./pages/UpdateProductForm";
 
 function App() {
   return (
@@ -36,6 +39,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/sellerRegister" element={<SellerReg />} />
           <Route path="/sellerProfile" element={<SellerProfile />} />
+          <Route path="/myProducts" element={<MySellerProduct />} />
+          <Route path="/editProduct" element={<UpdateProductForm />} />
           <Route path="/about" element={<About />} />
           <Route path="/help" element={<Help />} />
           <Route path="/register" element={<CreateAccount />} />
@@ -57,6 +62,7 @@ function App() {
           <Route path="/farmOwners" element={<FarmOwners />} />
           <Route path="/dairyProducts" element={<DairyProduct />} />
           <Route path="/productDescription" element={<ProductDesciption />} />
+          <Route path="/animaldescription" element={<AnimalDescription />} />
           <Route path="/predictBreed" element={<PredictBreedandPrice />} />
         </Routes>
       </OtpProvider>

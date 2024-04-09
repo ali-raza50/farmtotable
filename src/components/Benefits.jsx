@@ -3,6 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import "../Styles/benefits.css";
 import farmimg from "../img/farmimg.png";
 import digger from "../img/digger.png";
+import { Link } from "react-router-dom";
 
 const Benefits = () => {
   useEffect(() => {
@@ -41,22 +42,40 @@ const Benefits = () => {
             </div>
           </Col>
           <Col xs={12} sm={4} lg>
-            <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
-              <img src={digger} alt="" />
-              <h5>Dairy Products</h5>
-            </div>
+            <Link
+              to="/dairyProducts"
+              className="single-benefit-link"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
+                <img src={digger} alt="" />
+                <h5>Dairy Products</h5>
+              </div>
+            </Link>
           </Col>
           <Col xs={12} sm={4} lg>
-            <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
-              <img src={digger} alt="" />
-              <h5>Animals</h5>
-            </div>
+            <Link
+              to="/animal"
+              className="single-benefit-link"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
+                <img src={digger} alt="" />
+                <h5>Animals</h5>
+              </div>
+            </Link>
           </Col>
           <Col xs={12} sm={4} lg>
-            <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
-              <img src={digger} alt="" />
-              <h5>Milk Services</h5>
-            </div>
+            <Link
+              to="/milksubscription"
+              className="single-benefit-link"
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
+                <img src={digger} alt="" />
+                <h5>Milk Services</h5>
+              </div>
+            </Link>
           </Col>
         </Row>
       </Container>

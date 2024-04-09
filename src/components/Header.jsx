@@ -1,101 +1,130 @@
-import React, { useState } from "react";
-import "../Styles/Header.css";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars, faTimes } from "@fortawesome/free-solid-svg-icons";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import {
+  faBars,
+  faTimes,
+  faSearch,
   faShoppingCart,
-  faUserCog,
-  faCaretDown,
 } from "@fortawesome/free-solid-svg-icons";
+import "../Styles/Header.css"; // Ensure this path matches your file structure
+import SearchComponent from "./SearchComponent";
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleSearchVisibility = () => setIsSearchVisible(!isSearchVisible);
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
-
-  const toggleSearchVisibility = () => {
-    setIsSearchVisible(!isSearchVisible);
-  };
+  useEffect(() => {
+    // Add or remove 'no-scroll' class to body based on menu open state
+    if (isMenuOpen) {
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
+    }
+  }, [isMenuOpen]);
 
   return (
-    <nav className="navbar">
-      {/* Logo */}
-      <div className="logo">Farm to Table</div>
+    <>
+      <div
+        className={`overlay ${isMenuOpen ? "open" : ""}`}
+        onClick={() => setIsMenuOpen(false)}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
 
-      {/* Navigation Links and Hamburger Icon */}
-      <div className="nav-right">
-        <ul className="nav-links">
-          <li>
-            <a href="/">Home</a>
-          </li>
-          <li>
-            <a href="/about">About</a>
-          </li>
-          <li>
-            <a href="/contact">Contact</a>
-          </li>
-          <li>
-            <a href="/register">Register</a>
-          </li>
-          <li>
-            <a href="/login">Login</a>
-          </li>
-          {isSearchVisible && (
-            <div
-              className={`search-container ${isSearchVisible ? "visible" : ""}`}
-            >
-              <input type="text" placeholder="Search..." />
-            </div>
-          )}
-          <li>
-            <a href="#" onClick={toggleSearchVisibility}>
-              <FontAwesomeIcon icon={faSearch} />
-            </a>
-          </li>
-          <li>
-            <a href="/search">
-              <FontAwesomeIcon icon={faShoppingCart} />
-            </a>
-          </li>
-        </ul>
-
-        {/* Search */}
-        <div className="search-container"></div>
-
-        {/* Hamburger menu icon */}
-        <div className="menu-icon" onClick={toggleMenu}>
-          <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
+          zIndex: isMenuOpen ? 999 : -1, // Control with zIndex
+          display: isMenuOpen ? "block" : "none",
+          transition: "opacity 0.5s",
+        }}
+      ></div>
+      <nav className="navbar">
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <div
+            className="menu-icon"
+            onClick={toggleMenu}
+            style={{ marginRight: "20px" }}
+          >
+            <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
+          </div>
+          <Link to="/">
+            <div className="logo">Farm to Table</div>
+          </Link>
         </div>
-      </div>
 
-      {/* Sidebar menu */}
-      <div className={`sidebar ${isMenuOpen ? "open" : ""}`}>
-        {/* Close button */}
-        <button className="close-btn" onClick={closeMenu}>
-          <FontAwesomeIcon icon={faTimes} />
-        </button>
+        {isSearchVisible && (
+          <div className="search-container">
+            <SearchComponent />
+          </div>
+        )}
 
-        {/* Sidebar links */}
-        <ul className="sidebar-links">
-          <li>
-            <a href="/sellerRegister">Become a Seller</a>
-          </li>
-          <li>
-            <a href="/manage-listings">Manage Your Listings</a>
-          </li>
-          <li>
-            <a href="/sellerProfile">Manage Your Account</a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+        <div className="nav-right">
+          <ul className="nav-links">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
+            <li>
+              <Link to="/register">Register</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <a href="#" onClick={toggleSearchVisibility}>
+                <FontAwesomeIcon icon={faSearch} />
+              </a>
+            </li>
+            <li>
+              <Link to="/cart">
+                <FontAwesomeIcon icon={faShoppingCart} />
+              </Link>
+            </li>
+          </ul>
+        </div>
+
+        <div className={`sidebar ${isMenuOpen ? "open" : ""}`}>
+          <button className="close-btn" onClick={() => setIsMenuOpen(false)}>
+            <FontAwesomeIcon icon={faTimes} />
+          </button>
+
+          <ul className="sidebar-links">
+            <li>
+              <Link to="/sellerRegister" onClick={toggleMenu}>
+                Become a Seller
+              </Link>
+            </li>
+            <li>
+              <Link to="/myProducts" onClick={toggleMenu}>
+                Manage Your Listings
+              </Link>
+            </li>
+            <li>
+              <Link to="/sellerProfile" onClick={toggleMenu}>
+                Manage Your Account
+              </Link>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </>
   );
 };
 

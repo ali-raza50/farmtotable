@@ -1,64 +1,87 @@
-.outCardContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 50px;
-}
-
-.cardContainer {
-    width: 1059px;
-    height: 934px;
-    /* border: 2px solid red; */
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    /* align-items: center; */
-
-
-}
-
-/* StaticCard.css */
 .card {
-    /* border: 2px solid red; */
-    width: 311px;
-    height: 398px;
-    border-radius: 13px;
-    border: 1px solid #dbded9;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    position: relative;
-    margin-top: 20px;
-    margin-left: 10px;
-    /* margin: 20px; */
-}
+    width: 18rem;
 
-.card-image {
-    /* width: 338.723px; */
-    height: 333px;
-    border-radius: 9px 9px 0 0;
-    object-fit: cover;
-}
-
-.card-buttons {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.8);
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-}
-
-.card-buttons button {
-    background-color: #5BE719;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 8px 35px;
+    height: auto;
+    border-radius: 0;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.card-buttons button:hover {
-    background-color: #f7d40d;
+.card-body {
+    padding: 1.25rem;
+}
+
+.card-title {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-family: "Arial", sans-serif;
+}
+
+.card-text {
+    font-size: 1rem;
+    line-height: 1.5;
+    font-family: "Arial", sans-serif;
+}
+
+.card {
+    width: 13rem;
+    border-radius: 0;
+    /* border: 1px solid #ddd; */
+    overflow: hidden;
+    /* Hide overflow content */
+    margin-bottom: 40px;
+}
+
+.card .card-img-top {
+    width: 90%;
+    margin-top: 10px;
+    height: 250px;
+    object-fit: cover;
+    border: 1px solid #e0e0e0;
+}
+
+.card-body {
+    padding: 20px;
+    /* Add padding to the card body */
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Smooth transition for hover effects */
+    border-radius: 0;
+    /* As specified, but consider adding a slight radius for aesthetics */
+    height: auto;
+    /* Keeps height flexible based on content */
+}
+
+.card:hover {
+    transform: scale(1.03);
+    /* Slightly increases size for emphasis */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    /* Adds depth with shadow */
+}
+
+/* Ensuring text remains readable and does not change color on hover as it's inside Link */
+.card-title,
+.card-text {
+    transition: color 0.3s ease;
+    /* Optional: If you want to change text color on hover */
+}
+
+/* Specific hover styles for icons and text to indicate interaction */
+.icon,
+.eye-icon,
+.view-count span {
+    transition: color 0.3s ease;
+    /* Smooth transition for icon and view count color */
+}
+
+.card:hover .icon,
+.card:hover .eye-icon,
+.card:hover .view-count span {
+    color: #007bff;
+    /* Example hover color */
 }

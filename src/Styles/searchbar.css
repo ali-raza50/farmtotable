@@ -1,0 +1,69 @@
+.search-container {
+    position: relative;
+}
+
+.search-bar {
+    width: 300px;
+    padding: 10px 40px 10px 15px;
+    /* Added padding for the search icon */
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    transition: all 0.3s;
+    outline: none;
+}
+
+.search-container.focused .search-bar {
+    width: 400px;
+    /* Expand the width when focused */
+}
+
+.search-button {
+    position: absolute;
+    top: 50%;
+    left: calc(100% - 40px);
+    /* Position from right */
+    transform: translateY(-50%);
+    width: 40px;
+    /* Set width and height for icon container */
+    height: 40px;
+    background-color: black;
+    /* Set background color */
+    /* border-radius: 50%; */
+    /* Make it a circle */
+    display: flex;
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+    cursor: pointer;
+
+}
+
+/* Additional styling for the search icon */
+.search-button i {
+    color: white;
+    /* Change icon color */
+    font-size: 20px;
+    /* Adjust icon size */
+}
+
+.loader {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-top: 4px solid white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+    color: white;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

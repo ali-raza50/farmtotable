@@ -1,0 +1,12 @@
+.table-container {
+    border: 2px solid #F9FAFB;
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+    margin-top: 50px;
+    margin-bottom: 80px;
+}
+
+/* .table-container .min-w-full {
+    max-width: 80%;
+  } */
