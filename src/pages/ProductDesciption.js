@@ -10,8 +10,42 @@ import Butter from "../img/Butter1.png";
 import ChatIcon from "../components/ChatIcon";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import milk from "../img/dairy1.png";
+import axios from "axios";
 const ProductDesciption = () => {
   const navigate = useNavigate();
+  const addToCart = async () => {
+    try {
+      // Prepare the item data
+      const itemData = {
+        pid: 1,
+        name: "Cotton T-shirt", // Replace with the name of the item you want to add
+        quantity: 1, // Set the default quantity
+        price: 44.0, // Set the price of the item
+        image: milk, // Use the imported image
+        // Add other details of the item as needed
+      };
+
+      // Make a POST request to your backend endpoint to add the item to the cart
+      const response = await axios.post(
+        "http://localhost:8080/api/cart",
+        itemData
+      );
+
+      // Check if the request was successful
+      if (response.status === 201) {
+        alert("Item added to cart successfully");
+        navigate("/cart", { state: { pid: itemData.pid } }); // Redirect to the cart page
+      } else {
+        throw new Error("Failed to add item to cart");
+      }
+    } catch (error) {
+      console.error("Error adding item to cart:", error);
+      alert("Failed to add item to cart");
+    }
+  };
+
+  //product items
   const ProductDesciptionItem = {
     images: [
       {
@@ -128,7 +162,7 @@ const ProductDesciption = () => {
 
           <div className="mt-7 flex flex-row items-center gap-6">
             <button
-              onClick={() => navigate("/cart")}
+              onClick={addToCart}
               className="flex h-12 w-1/3 items-center justify-center bg-green-900 text-white duration-100 hover:bg-black focus:outline-none"
             >
               <BiShoppingBag className="mr-2" />

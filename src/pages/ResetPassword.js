@@ -1,133 +1,149 @@
 import React, { useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Spinner from "../components/Spinner";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import loginImg from "../img/loginImg.png";
+import register from "../img/registration.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
-import "../Styles/Register.css";
-import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
-
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 const ResetPassword = () => {
   let navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
-  const email = location.state?.email;
-  // const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const email = location.state?.email; // Assuming email is passed via state from the previous page
+
+  const [password, setpassword] = useState("");
+  const [confirmpassword, setConfirmpassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (password !== confirmpassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
+    setIsLoading(true);
+
     try {
-      console.log("sahi chal raha h"); // Display success message
-      const response = await axios.post(
-        "http://localhost:8080/api/v1/resetPassword",
-        {
-          email,
-          password,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json", // Set the Content-Type header to JSON
-          },
-        }
-      );
-      // Redirect user to success page or perform other actions
-      navigate("/login");
+      await axios.post("http://localhost:8080/api/v1/resetPassword", {
+        email,
+        password,
+      });
+
+      toast.success("Password reset successful");
+      setTimeout(() => {
+        navigate("/login");
+      }, 2000);
     } catch (error) {
-      console.error("error h", error); // Display error message
-      // Handle error
+      console.error("Reset password error:", error.response?.data);
+      toast.error(error.response?.data?.message || "Reset password failed!");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <>
       <Header />
-      <h2 className="regTitle">Change Password</h2>
-      <div className="registerContainer">
-        <div className="regFormContainer">
-          <section className="vh-100">
-            <div className="container-fluid h-custom">
-              <div className="row d-flex justify-content-center align-items-center h-100">
-                <div className="col-md-9 col-lg-6 col-xl-5">
-                  <img src={loginImg} className="img-fluid" alt="Sample" />
+
+      <div className="py-16">
+        <div className="flex bg-white rounded-lg shadow-lg overflow-hidden mx-auto max-w-sm lg:max-w-4xl">
+          <div
+            className="hidden lg:block lg:w-1/2 bg-cover"
+            style={{
+              backgroundImage: `url(${register})`,
+            }}
+          ></div>
+          <div className="w-full p-8 lg:w-1/2">
+            <h2 className="text-2xl font-semibold text-gray-700 text-center text-black logo">
+              Farm To Table
+            </h2>
+            <p className="text-xl text-gray-600 text-center">Reset Password</p>
+
+            <form onSubmit={handleSubmit}>
+              <div className="mt-4">
+                <div className="flex justify-between">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    New Password
+                  </label>
                 </div>
-                <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                  <form onSubmit={handleSubmit}>
-                    <InputField
-                      label="New Password"
-                      name="password"
-                      id="password"
-                      type="password"
-                      placeholder="Enter new password"
-                      icon={faLock}
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                    <InputField
-                      label="Confirm New Password"
-                      name="confirmPassword"
-                      id="confirmPassword"
-                      type="password"
-                      placeholder="Confirm new password"
-                      icon={faLock}
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                    />
-                    <div className="text-center text-lg-start mt-4 pt-2">
-                      <button
-                        type="submit"
-                        className="btn btn-primary btn-lg"
-                        style={{
-                          paddingLeft: "2.5rem",
-                          paddingRight: "2.5rem",
-                        }}
-                      >
-                        Change Password
-                      </button>
-                    </div>
-                  </form>
+                <div className="relative">
+                  <input
+                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="New Password"
+                    value={password}
+                    onChange={(e) => setpassword(e.target.value)}
+                    required
+                  />
+                  <Link
+                    className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-700 no-focus-outline"
+                    onClick={togglePasswordVisibility}
+                  >
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  </Link>
                 </div>
               </div>
-            </div>
-          </section>
+              <div className="mt-4">
+                <div className="flex justify-between">
+                  <label className="block text-gray-700 text-sm font-bold mb-2">
+                    Confirm New Password
+                  </label>
+                </div>
+                <div className="relative">
+                  <input
+                    className="bg-gray-200 text-gray-700 focus:outline-none focus:shadow-outline border border-gray-300 rounded py-2 px-4 block w-full appearance-none"
+                    type={showConfirmPassword ? "text" : "password"}
+                    placeholder="Confirm New Password"
+                    value={confirmpassword}
+                    onChange={(e) => setConfirmpassword(e.target.value)}
+                    required
+                  />
+                  <Link
+                    // type="button"
+                    className="absolute inset-y-0 right-0 flex items-center px-3 text-gray-700 "
+                    onClick={toggleConfirmPasswordVisibility}
+                    style={{ outline: "none" }}
+                  >
+                    <FontAwesomeIcon
+                      icon={showConfirmPassword ? faEyeSlash : faEye}
+                    />
+                  </Link>
+                </div>
+              </div>
+              <div className="flex justify-center items-center">
+                <button
+                  type="submit"
+                  className={`mt-4 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-teal-500 hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 ${
+                    isLoading && "opacity-75 cursor-not-allowed"
+                  }`}
+                  disabled={isLoading}
+                >
+                  {isLoading ? <Spinner /> : "Reset Password"}
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
+      <ToastContainer />
       <Footer />
     </>
   );
 };
-
-const InputField = ({
-  label,
-  name,
-  id,
-  type,
-  placeholder,
-  icon,
-  value,
-  onChange,
-}) => (
-  <div className="form-outline mb-4">
-    <label className="form-label" htmlFor={id}>
-      {label}
-    </label>
-    <div className="input-group">
-      <span className="input-group-text" id="basic-addon1">
-        <FontAwesomeIcon icon={icon} />
-      </span>
-      <input
-        type={type}
-        id={id}
-        className="form-control form-control-lg"
-        placeholder={placeholder}
-        name={name}
-        value={value}
-        onChange={onChange}
-      />
-    </div>
-  </div>
-);
 
 export default ResetPassword;

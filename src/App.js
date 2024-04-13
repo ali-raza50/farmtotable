@@ -30,6 +30,7 @@ import SellerProfile from "./components/SellerProfile";
 import AnimalDescription from "./pages/AnimalDescription";
 import MySellerProduct from "./components/MySellerProduct";
 import UpdateProductForm from "./pages/UpdateProductForm";
+import UserFormData from "./components/UserFormData";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
           <Route path="/help" element={<Help />} />
           <Route path="/register" element={<CreateAccount />} />
           <Route path="/userprofile" element={<UserProfile />} />
+          <Route path="/userformdata" element={<UserFormData />} />
           <Route path="/orders" element={<Orders />} />
           <Route path="/review" element={<Review />} />
           <Route path="/otpPage" element={<OtpPage />} />

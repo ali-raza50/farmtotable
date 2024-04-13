@@ -1,51 +1,59 @@
 import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
-
-export default function ResetOTP() {
-  let navigate = useNavigate();
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Spinner from "../components/Spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useLocation } from "react-router-dom";
+const ResetOTP = () => {
+  const [timeLeft, setTimeLeft] = useState(60); // Countdown time in seconds
+  const [otp, setOtp] = useState(Array(4).fill("")); // OTP state
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
   const email = location.state?.email;
-  // const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
-  const [timerCount, setTimerCount] = useState(60);
-  const [otpInput, setOtpInput] = useState(["", "", "", ""]);
-  const [disableResend, setDisableResend] = useState(true);
-
+  const totalTime = 60;
+  // Effect for countdown timer
   useEffect(() => {
-    const interval = setInterval(() => {
-      setTimerCount((prevCount) => {
-        if (prevCount === 0) {
-          clearInterval(interval);
-          setDisableResend(false);
-          return 60;
-        }
-        return prevCount - 1;
-      });
-    }, 1000);
+    if (timeLeft > 0) {
+      const timerId = setTimeout(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearTimeout(timerId);
+    }
+  }, [timeLeft]);
+  const circleCircumference = 2 * Math.PI * 40;
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false; // Ensure the character is a number
 
-    return () => clearInterval(interval);
-  }, []);
+    const newOtp = [...otp];
+    newOtp[index] = element.value;
+    setOtp(newOtp);
 
-  const handleOtpInputChange = (index, value) => {
-    const updatedOtpInput = [...otpInput];
-    updatedOtpInput[index] = value;
-    setOtpInput(updatedOtpInput);
+    // Move to next input field if available
+    if (element.nextSibling && element.value) {
+      element.nextSibling.focus();
+    }
   };
 
-  const resendOTP = () => {
-    if (disableResend) return;
-    axios
-      .post("http://localhost:8080/send_recovery_email", {
+  const resendOtp = async () => {
+    setTimeLeft(60); // Reset the countdown timer
+
+    try {
+      axios.post("http://localhost:8080/send_recovery_email", {
         OTP: otp,
         recipient_email: email,
-      })
-      .then(() => {
-        setDisableResend(true);
-        setTimerCount(60);
-      })
-      .catch(console.log);
+      });
+      // Call API to resend OTP. This is just a placeholder and needs to be replaced with your actual API call.
+      console.log("Resending OTP...");
+      // For demonstration, let's simulate an API response delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("OTP Resent.");
+    } catch (error) {
+      console.error("Error resending OTP:", error);
+    }
   };
 
   const verifyOTP = () => {
@@ -60,66 +68,94 @@ export default function ResetOTP() {
   };
 
   return (
-    <div
-      className="d-flex justify-content-center align-items-center bg-gray-50"
-      style={{ minHeight: "100vh" }}
-    >
-      <div className="bg-white px-4 py-5 shadow-lg mx-auto w-100 max-w-lg rounded-3xl">
-        <div className="d-flex flex-column justify-content-center text-center space-y-2">
-          <div className="font-weight-bold fs-3">Email Verification</div>
-          <div className="text-sm text-gray-400">
-            We have sent a code to your email {email}
+    <>
+      <Header />
+      <div className="max-w-md mx-auto border max-w-sm mt-20 mb-20 rounded">
+        <div className="shadow-md px-8 py-6">
+          <h2 className="text-2xl font-semibold text-gray-700 text-center mb-6">
+            OTP Verification
+          </h2>
+
+          <div className="flex justify-center items-center relative mb-5 mt-5">
+            {/* SVG with Gradient */}
+            <svg
+              className="absolute"
+              width="120"
+              height="120"
+              viewBox="0 0 120 120"
+            >
+              <defs>
+                <linearGradient
+                  id="countdownGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style={{ stopColor: "#ff105f" }} />
+                  <stop offset="100%" style={{ stopColor: "#ffad06" }} />
+                </linearGradient>
+              </defs>
+              <circle
+                r="40"
+                cx="60"
+                cy="60"
+                fill="none"
+                stroke="url(#countdownGradient)"
+                strokeWidth="4"
+                strokeDasharray={circleCircumference}
+                strokeDashoffset={
+                  (circleCircumference * (totalTime - timeLeft)) / totalTime
+                }
+                strokeLinecap="round"
+                transform="rotate(-90 60 60)"
+              />
+            </svg>
+            <span className="text-1xl font-semibold z-10">{timeLeft}s</span>
+          </div>
+
+          {/* OTP Inputs */}
+          <div className="flex justify-center gap-2 mb-6">
+            {otp.map((data, index) => (
+              <input
+                className="w-12 h-12 text-center border rounded-md shadow-sm focus:border-teal-500 focus:ring-teal-500"
+                type="text"
+                name="otp"
+                maxLength="1"
+                key={index}
+                value={data}
+                onChange={(e) => handleChange(e.target, index)}
+                onFocus={(e) => e.target.select()}
+              />
+            ))}
+          </div>
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={verifyOTP}
+              className={`bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none ${
+                isLoading && "opacity-75 cursor-not-allowed"
+              }`}
+            >
+              {isLoading ? <Spinner /> : "Verify"}
+            </button>
+            <button
+              disabled={timeLeft > 0}
+              onClick={resendOtp}
+              className={`font-bold text-sm ${
+                timeLeft > 0
+                  ? "text-gray-400"
+                  : "text-teal-500 hover:text-teal-800"
+              }`}
+            >
+              Resend OTP
+            </button>
           </div>
         </div>
-
-        <form>
-          <div className="d-flex flex-column space-y-5">
-            <div className="d-flex justify-content-between mx-auto w-100 max-w-md">
-              {Array.from({ length: 4 }, (_, index) => (
-                <div key={index} className="w-100">
-                  <input
-                    maxLength="1"
-                    className="w-100 h-100 d-flex justify-content-center align-items-center text-center px-3 rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700"
-                    type="text"
-                    value={otpInput[index]}
-                    onChange={(e) =>
-                      handleOtpInputChange(index, e.target.value)
-                    }
-                  />
-                </div>
-              ))}
-            </div>
-
-            <div className="d-flex flex-column space-y-2">
-              <button
-                onClick={verifyOTP}
-                className="btn btn-primary"
-                style={{ padding: "0.75rem 0", fontSize: "1rem" }}
-              >
-                Verify Account
-              </button>
-
-              <div className="d-flex flex-row justify-content-center align-items-center text-center text-sm text-gray-500">
-                <span>Didn't receive code?</span>
-                <button
-                  onClick={resendOTP}
-                  className={`btn ${disableResend ? "disabled" : ""}`}
-                  style={{
-                    color: disableResend ? "gray" : "blue",
-                    cursor: disableResend ? "not-allowed" : "pointer",
-                    textDecoration: disableResend ? "none" : "underline",
-                    fontSize: "0.875rem",
-                  }}
-                >
-                  {disableResend
-                    ? `Resend OTP in ${timerCount}s`
-                    : "Resend OTP"}
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
       </div>
-    </div>
+      <ToastContainer />
+      <Footer />
+    </>
   );
-}
+};
+
+export default ResetOTP;

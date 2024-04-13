@@ -1,101 +1,171 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
-import Footer from "../components/Footer";
-import loginImg from "../img/loginImg.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
-import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons/faEnvelope";
-import "../Styles/Register.css";
-import "../Styles/OtpPage.css";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import OTPInput from "react-otp-input";
-import Timer from "../components/Time";
-const OtpPage = () => {
-  let navigate = useNavigate();
-  const [otp, setOTP] = useState("");
+import Header from "../components/Header";
+import Footer from "../components/Footer";
+import Spinner from "../components/Spinner";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-  const verfiyOTP = async (e) => {
-    e.preventDefault();
+const OTPForm = () => {
+  const [timeLeft, setTimeLeft] = useState(60); // Countdown time in seconds
+  const [otp, setOtp] = useState(Array(4).fill("")); // OTP state
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const totalTime = 60;
+  // Effect for countdown timer
+  useEffect(() => {
+    if (timeLeft > 0) {
+      const timerId = setTimeout(() => {
+        setTimeLeft(timeLeft - 1);
+      }, 1000);
+      return () => clearTimeout(timerId);
+    }
+  }, [timeLeft]);
+  const circleCircumference = 2 * Math.PI * 40;
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false; // Ensure the character is a number
+
+    const newOtp = [...otp];
+    newOtp[index] = element.value;
+    setOtp(newOtp);
+
+    // Move to next input field if available
+    if (element.nextSibling && element.value) {
+      element.nextSibling.focus();
+    }
+  };
+
+  const verifyOtp = async () => {
+    setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:8080/api/v1/verifyOtp", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ otp }),
-      });
-
-      if (response.ok) {
-        // Handle successful OTP verification here
-        console.log("OTP verification successful");
-        // Navigate to the homepage
-        navigate("/"); // Replace '/' with the route of your homepage
-      } else {
-        // Handle failed OTP verification here
-        console.error("OTP verification failed");
-      }
+      const response = await axios.post(
+        "http://localhost:8080/api/v1/verifyOtp",
+        {
+          otp: otp.join(""),
+        }
+      );
+      console.log(response.data);
+      toast.success("OTP Verification");
+      setTimeout(() => {
+        navigate("/"); // Adjust the route as necessary
+      }, 2000); // Wait for 5 seconds before navigating
+      // Redirect on successful verification
     } catch (error) {
-      console.error("Error occurred while verifying OTP:", error.message);
+      console.error(
+        "Verification error:",
+        error.response ? error.response.data : error
+      );
+      toast.error(error.response.data.message || "otp failed!");
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const resendOtp = async () => {
+    setTimeLeft(60); // Reset the countdown timer
+
+    try {
+      // Call API to resend OTP. This is just a placeholder and needs to be replaced with your actual API call.
+      console.log("Resending OTP...");
+      // For demonstration, let's simulate an API response delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("OTP Resent.");
+    } catch (error) {
+      console.error("Error resending OTP:", error);
     }
   };
 
   return (
     <>
       <Header />
-      <h2 className="regTitle">Confirm OTP</h2>
-      <div className="registerContainer">
-        <div className="regFormContainer">
-          <section className="vh-100">
-            <div className="container-fluid h-custom">
-              <div className="row d-flex justify-content-center align-items-center h-100">
-                <div className="col-md-9 col-lg-6 col-xl-5">
-                  <img src={loginImg} className="img-fluid" alt="Sample" />
-                </div>
-                <div className="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                  <form onSubmit={verfiyOTP}>
-                    <h6>Confirmation Required</h6>
-                    <p>Please Enter 4 Digit Code sent to your email address </p>
-                    <OTPInput
-                      value={otp}
-                      onChange={setOTP}
-                      numInputs={4}
-                      renderSeparator={<span>-</span>}
-                      renderInput={(props) => <input {...props} />}
-                      // inputStyle={true}
-                      shouldAutoFocus
-                      inputStyle="inputStyle1"
-                    />
-                    <Timer seconds={30} minutes={0} />
-                    <div className="text-center text-lg-start mt-4 pt-2">
-                      <button
-                        type="submit"
-                        // onClick={() => verfiyOTP()}
-                        className="btn btn-primary btn-lg"
-                        style={{
-                          paddingLeft: "2.5rem",
-                          paddingRight: "2.5rem",
-                        }}
-                      >
-                        Verify
-                      </button>
-                      <p className="small fw-bold mt-2 pt-1 mb-0">
-                        Already have an account?
-                        <Link to="/Login" className="link-danger">
-                          Login
-                        </Link>
-                      </p>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </section>
+      <div className="max-w-md mx-auto border max-w-sm mt-20 mb-20 rounded">
+        <div className="shadow-md px-8 py-6">
+          <h2 className="text-2xl font-semibold text-gray-700 text-center mb-6">
+            OTP Verification
+          </h2>
+
+          <div className="flex justify-center items-center relative mb-5 mt-5">
+            {/* SVG with Gradient */}
+            <svg
+              className="absolute"
+              width="120"
+              height="120"
+              viewBox="0 0 120 120"
+            >
+              <defs>
+                <linearGradient
+                  id="countdownGradient"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="0%"
+                >
+                  <stop offset="0%" style={{ stopColor: "#ff105f" }} />
+                  <stop offset="100%" style={{ stopColor: "#ffad06" }} />
+                </linearGradient>
+              </defs>
+              <circle
+                r="40"
+                cx="60"
+                cy="60"
+                fill="none"
+                stroke="url(#countdownGradient)"
+                strokeWidth="4"
+                strokeDasharray={circleCircumference}
+                strokeDashoffset={
+                  (circleCircumference * (totalTime - timeLeft)) / totalTime
+                }
+                strokeLinecap="round"
+                transform="rotate(-90 60 60)"
+              />
+            </svg>
+            <span className="text-1xl font-semibold z-10">{timeLeft}s</span>
+          </div>
+
+          {/* OTP Inputs */}
+          <div className="flex justify-center gap-2 mb-6">
+            {otp.map((data, index) => (
+              <input
+                className="w-12 h-12 text-center border rounded-md shadow-sm focus:border-teal-500 focus:ring-teal-500"
+                type="text"
+                name="otp"
+                maxLength="1"
+                key={index}
+                value={data}
+                onChange={(e) => handleChange(e.target, index)}
+                onFocus={(e) => e.target.select()}
+              />
+            ))}
+          </div>
+          <div className="flex items-center justify-center gap-4">
+            <button
+              onClick={verifyOtp}
+              className={`bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded focus:outline-none ${
+                isLoading && "opacity-75 cursor-not-allowed"
+              }`}
+            >
+              {isLoading ? <Spinner /> : "Verify"}
+            </button>
+            <button
+              disabled={timeLeft > 0}
+              onClick={resendOtp}
+              className={`font-bold text-sm ${
+                timeLeft > 0
+                  ? "text-gray-400"
+                  : "text-teal-500 hover:text-teal-800"
+              }`}
+            >
+              Resend OTP
+            </button>
+          </div>
         </div>
       </div>
-      {/* <Footer /> */}
+      <ToastContainer />
+      <Footer />
     </>
   );
 };
-export default OtpPage;
+
+export default OTPForm;

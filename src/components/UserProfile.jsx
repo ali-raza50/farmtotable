@@ -1,8 +1,18 @@
 import { Link } from "react-router-dom"; // Import Link from React Router
 import Header from "./Header";
 import Footer from "./Footer";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/context/AuthContext.jsx";
 
 export default function UserProfile() {
+  const navigate = useNavigate();
+  const { userData } = useAuth();
+  console.log("userData in userprofile", userData);
+  const userEmail = userData ? userData.email : "";
+  const userName = userData ? userData.name : "";
+  const userdata = () => {
+    navigate("/userformdata", { state: { email: userEmail } });
+  };
   return (
     <>
       <Header />
@@ -13,7 +23,7 @@ export default function UserProfile() {
             Profile
           </h2>
           <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-            Welcome, Ali Raza
+            Welcome, {userName}
           </p>
           <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
             Here you can view and update your profile information.
@@ -22,7 +32,10 @@ export default function UserProfile() {
         <div className="mt-10 p-5 bg-white rounded-lg shadow">
           <div className="grid gap-5 lg:grid-cols-3 lg:max-w-none">
             {/* Card 1: Profile Info */}
-            <div className="bg-blue-50 hover:shadow-lg transition duration-200 rounded-lg p-4">
+            <div
+              className="bg-blue-50 hover:shadow-lg transition duration-200 rounded-lg p-4 cursor-pointer"
+              onClick={userdata}
+            >
               <div className="flex items-center justify-center">
                 <div className="h-14 w-14 inline-flex items-center justify-center rounded-full bg-blue-500 text-white">
                   <img
@@ -34,12 +47,9 @@ export default function UserProfile() {
               </div>
               <div className="text-center mt-4">
                 <h3 className="text-lg leading-6 font-medium text-gray-900">
-                  John Doe
+                  {userName}
                 </h3>
-                <p className="mt-2 text-sm text-gray-500">
-                  johndoe@example.com
-                </p>
-                <p className="mt-2 text-sm text-gray-500">+1-202-555-0143</p>
+                <p className="mt-2 text-sm text-gray-500">{userEmail}</p>
               </div>
             </div>
             {/* Card 2: Shipping Address */}
@@ -95,7 +105,7 @@ export default function UserProfile() {
                   You have 3 items in your cart
                 </p>
                 <Link
-                  to="#"
+                  to="/cart"
                   className="block mt-4 text-center text-blue-600 hover:underline"
                 >
                   View Cart
