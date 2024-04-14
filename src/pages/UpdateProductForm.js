@@ -179,7 +179,7 @@ const UpdateProductForm = ({ productId }) => {
                   required
                 ></textarea>
               </div>
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6 sm:col-span-3 mb-4">
                 <label
                   htmlFor="image"
                   className="text-sm font-medium text-gray-900 block mb-2"

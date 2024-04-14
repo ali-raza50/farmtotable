@@ -23,6 +23,21 @@ const Login = () => {
   const loginwithgoogle = () => {
     console.log("mery andhar hns");
     window.open("http://localhost:8080/auth/google/callback", "_self");
+    getUser();
+  };
+
+  const getUser = async () => {
+    console.log("running");
+    try {
+      const response = await axios.get("http://localhost:8080/login/sucess", {
+        withCredentials: true,
+      });
+      console.log("getuser data called");
+      setUserData(response.data.user);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -63,7 +78,9 @@ const Login = () => {
       // Update authentication state and user information
       setIsLoggedIn(true);
       setUserData(userData);
-
+      // Save user data to localStorage
+      localStorage.setItem("userData", JSON.stringify(userData));
+      localStorage.setItem("isLoggedIn", true);
       toast.success("Login Successful");
       setTimeout(() => {
         navigate("/"); // Navigate to home page or dashboard as needed

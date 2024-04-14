@@ -10,9 +10,10 @@ import Spinner from "../components/Spinner";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../components/context/AuthContext";
 const CreateAccount = () => {
   let navigate = useNavigate();
-
+  const { setIsLoggedIn, setUserData } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,6 +25,21 @@ const CreateAccount = () => {
   const loginwithgoogle = () => {
     console.log("mery andhar hns");
     window.open("http://localhost:8080/auth/google/callback", "_self");
+    getUser();
+  };
+
+  const getUser = async () => {
+    console.log("running");
+    try {
+      const response = await axios.get("http://localhost:8080/login/sucess", {
+        withCredentials: true,
+      });
+      console.log("getuser data called");
+      setUserData(response.data.user);
+      setIsLoggedIn(true);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -62,7 +78,8 @@ const CreateAccount = () => {
       // Assuming the API returns a success message or similar
       console.log(response.data.message);
       // Navigate to another route upon success. Adjust the route as necessary.
-
+      setUserData(response.data.user);
+      setIsLoggedIn(true);
       toast.success("Go for OTP Verification");
       setTimeout(() => {
         navigate("/otpPage"); // Adjust the route as necessary

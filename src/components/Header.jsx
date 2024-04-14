@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faBars,
@@ -15,7 +15,9 @@ import UserDropdown from "./UserDropdown";
 import axios from "axios";
 import { useAuth } from "../components/context/AuthContext.jsx";
 const Header = () => {
-  const { isLoggedIn, userData } = useAuth(); // ye context folder sy h jo hum ny banaya h khud sy sy h
+  let navigate = useNavigate();
+  const { isLoggedIn, setIsLoggedIn, userData, setUserData, logout } =
+    useAuth(); // ye context folder sy h jo hum ny banaya h khud sy sy h
   const [userdata, setUserdata] = useState({}); // ye google auth sy data aya h
   // const { setIsLoggedIn, setUserData } = useAuth();
   console.log("header mey", isLoggedIn);
@@ -49,26 +51,39 @@ const Header = () => {
     }
   }, [isMenuOpen]);
 
-  const getUser = async () => {
-    try {
-      const response = await axios.get("http://localhost:8080/login/sucess", {
-        withCredentials: true,
-      });
+  // const getUser = async () => {
+  //   console.log("running");
+  //   try {
+  //     const response = await axios.get("http://localhost:8080/login/sucess", {
+  //       withCredentials: true,
+  //     });
+  //     setUserData(response.data.user);
+  //     setIsLoggedIn(true);
+  //   } catch (error) {
+  //     console.log("error", error);
+  //   }
+  // };
 
-      setUserdata(response.data.user);
-    } catch (error) {
-      console.log("error", error);
-    }
+  const handleLogout = () => {
+    logout();
+    setIsLoggedIn(false);
+    setUserData(null);
+    // Clear local storage
+    localStorage.removeItem("userData");
+    localStorage.removeItem("isLoggedIn");
+    alert("logout successfully");
+    navigate("/login");
+    // You can perform additional logout actions here, such as redirecting the user
   };
 
   // logoout
-  const logout = () => {
-    window.open("http://localhost:8080/logout", "_self");
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
+  // const logout = () => {
+  //   window.open("http://localhost:8080/logout", "_self");
+  //   isLoggedIn(false);
+  // };
+  // useEffect(() => {
+  //   getUser();
+  // }, []);
   console.log("userdata:", userdata);
   console.log("userData:", userData);
 
@@ -79,6 +94,24 @@ const Header = () => {
   // }
   const userDataToPass = isLoggedIn ? userData : userdata;
   console.log("userDataToPass: ", userDataToPass);
+
+  const serverAddress = "http://localhost:8080";
+
+  const imageURL = (() => {
+    if (!userData?.image) {
+      return ""; // No image provided
+    }
+    // Check if the image URL is already an absolute URL
+    if (
+      userData.image.startsWith("http://") ||
+      userData.image.startsWith("https://")
+    ) {
+      return userData.image;
+    }
+    // Convert relative path to absolute URL
+    return `${serverAddress}/${userData.image.replace(/\\/g, "/")}`;
+  })();
+
   return (
     <>
       <div
@@ -136,7 +169,7 @@ const Header = () => {
             </li>
 
             {/* login with google auth */}
-            {Object?.keys(userdata)?.length > 0 ? (
+            {isLoggedIn ? (
               <>
                 {/* <li style={{ color: "white", fontWeight: "bold" }}>
                   {userdata?.displayName}
@@ -146,7 +179,7 @@ const Header = () => {
                   style={{ position: "relative", cursor: "pointer" }}
                 >
                   <img
-                    src={userdata?.image}
+                    src={imageURL}
                     style={{
                       width: "30px",
                       height: "30px",
@@ -156,7 +189,7 @@ const Header = () => {
                     alt="userimage"
                   />
                   {isDropdownVisible && (
-                    <UserDropdown userData={userdata} onLogout={logout} />
+                    <UserDropdown userData={userData} onLogout={handleLogout} />
                   )}
                 </li>
               </>

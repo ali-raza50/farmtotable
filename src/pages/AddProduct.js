@@ -3,8 +3,10 @@ import UploadImages from "../components/UploadImages";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SuccessMessage from "../components/SuccessMessage";
+import { useNavigate } from "react-router-dom";
 
 const AddProductForm = () => {
+  const navigate = useNavigate();
   const [productName, setProductName] = useState("");
   const [productImages, setProductImages] = useState([]);
   const [weight, setWeight] = useState("");
@@ -56,6 +58,7 @@ const AddProductForm = () => {
         <div className="flex items-start justify-between p-5 border-b rounded-t">
           <h3 className="text-xl font-semibold">Submit a Product</h3>
           <button
+            onClick={() => navigate("/sellerMenu")}
             type="button"
             className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
           >
@@ -184,7 +187,7 @@ const AddProductForm = () => {
                   required
                 ></textarea>
               </div>
-              <div className="col-span-6 sm:col-span-3">
+              <div className="col-span-6 sm:col-span-3 mb-4">
                 <label
                   htmlFor="image"
                   className="text-sm font-medium text-gray-900 block mb-2"

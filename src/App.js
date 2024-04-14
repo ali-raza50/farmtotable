@@ -31,6 +31,7 @@ import AnimalDescription from "./pages/AnimalDescription";
 import MySellerProduct from "./components/MySellerProduct";
 import UpdateProductForm from "./pages/UpdateProductForm";
 import UserFormData from "./components/UserFormData";
+import PaymentStatus from "./components/PaymentStatus";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/sellerRegister" element={<SellerReg />} />
           <Route path="/sellerProfile" element={<SellerProfile />} />
+          <Route path="/payment" element={<PaymentStatus />} />
           <Route path="/myProducts" element={<MySellerProduct />} />
           <Route path="/editProduct" element={<UpdateProductForm />} />
           <Route path="/about" element={<About />} />

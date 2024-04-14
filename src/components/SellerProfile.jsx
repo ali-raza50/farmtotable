@@ -48,9 +48,8 @@ export default function SellerProfile() {
                 <h3 className="text-lg leading-6 font-medium text-gray-900">
                   Shipping Address
                 </h3>
-                <p className="mt-2 text-sm text-gray-500">123 Main St</p>
-                <p className="text-sm text-gray-500">City, State 12345</p>
-                <p className="text-sm text-gray-500">United States</p>
+                <p className="mt-2 text-sm text-gray-500">China Scheme</p>
+                <p className="text-sm text-gray-500">Lahore, Pakistan</p>
                 <Link
                   to="#"
                   className="block mt-4 text-center text-blue-600 hover:underline"
@@ -69,7 +68,7 @@ export default function SellerProfile() {
                   •••• •••• •••• 1234
                 </p>
                 <Link
-                  to="#"
+                  to="/payment"
                   className="block mt-4 text-center text-blue-600 hover:underline"
                 >
                   Manage Payments

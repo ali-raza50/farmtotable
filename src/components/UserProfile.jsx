@@ -10,6 +10,11 @@ export default function UserProfile() {
   console.log("userData in userprofile", userData);
   const userEmail = userData ? userData.email : "";
   const userName = userData ? userData.name : "";
+  const image = userData ? userData.image : "";
+  const serverAddress = "http://localhost:8080";
+  const imageURL = userData?.image
+    ? `${serverAddress}/${userData.image.replace(/\\/g, "/")}`
+    : "";
   const userdata = () => {
     navigate("/userformdata", { state: { email: userEmail } });
   };
@@ -39,8 +44,8 @@ export default function UserProfile() {
               <div className="flex items-center justify-center">
                 <div className="h-14 w-14 inline-flex items-center justify-center rounded-full bg-blue-500 text-white">
                   <img
-                    className="h-8 w-8 rounded-full"
-                    src="/placeholder-avatar.jpg"
+                    className="h-14 w-14 rounded-full"
+                    src={imageURL}
                     alt="Profile"
                   />
                 </div>
