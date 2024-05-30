@@ -12,7 +12,7 @@ const UserFormData = () => {
   const [image, setImage] = useState(userData?.image || "");
   console.log(userData);
   console.log("image: ", image);
-  const serverAddress = "http://localhost:8080";
+  const serverAddress = "http://localhost:4000";
   const imageURL = userData?.image
     ? `${serverAddress}/${userData.image.replace(/\\/g, "/")}`
     : "";
@@ -27,7 +27,7 @@ const UserFormData = () => {
     formData.append("image", image);
     try {
       const { data } = await axios.put(
-        "http://localhost:8080/api/v1/updateProfile",
+        "http://localhost:4000/api/v1/updateProfile",
         formData,
         {
           headers: {

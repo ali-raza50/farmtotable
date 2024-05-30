@@ -43,7 +43,10 @@ function App() {
           <Route path="/sellerProfile" element={<SellerProfile />} />
           <Route path="/payment" element={<PaymentStatus />} />
           <Route path="/myProducts" element={<MySellerProduct />} />
-          <Route path="/editProduct" element={<UpdateProductForm />} />
+          <Route
+            path="/editProduct/:productId"
+            element={<UpdateProductForm />}
+          />
           <Route path="/about" element={<About />} />
           <Route path="/help" element={<Help />} />
           <Route path="/register" element={<CreateAccount />} />

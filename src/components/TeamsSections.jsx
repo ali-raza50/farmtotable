@@ -14,28 +14,30 @@ const TeamSection = () => {
       position: "Supervisor",
       imageUrl: supervisorImage,
       description:
-        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum.",
+        "Maam Yellah Mehroze oversees our daily operations and ensures team efficiency.",
       isSupervisor: true,
     },
+
     {
       name: "Ali Raza",
       position: "Developer",
       imageUrl: member1Image,
-      description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      description:
+        "Ali Raza is a dedicated developer passionate about crafting high-quality software solutions.",
     },
     {
       name: "Salahuddin",
       position: "Developer",
       imageUrl: member2Image,
       description:
-        "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+        "Salahuddin brings creativity and innovation to every project, striving for excellence.",
     },
     {
-      name: "Sheikh Pyara",
+      name: "Ahsan Sheikh",
       position: "Developer",
       imageUrl: member3Image,
       description:
-        "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.",
+        "Ahsan Sheikh is committed to delivering efficient and effective solutions with precision and expertise.",
     },
   ];
   //   teamMembers = teamMembers.sort((a, b) => b.isSupervisor - a.isSupervisor);

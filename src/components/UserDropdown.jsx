@@ -17,7 +17,7 @@ const UserDropdown = ({ userData, onLogout }) => (
     }}
   >
     <div style={{ padding: "10px", borderBottom: "1px solid #ccc" }}>
-      {userData.displayName || userData.name}
+      {userData?.name || "farzi"}
     </div>
     <div style={{ borderBottom: "1px solid #ccc" }}>
       <Link

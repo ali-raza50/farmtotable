@@ -14,14 +14,15 @@ import SearchComponent from "./SearchComponent";
 import UserDropdown from "./UserDropdown";
 import axios from "axios";
 import { useAuth } from "../components/context/AuthContext.jsx";
+
 const Header = () => {
   let navigate = useNavigate();
   const { isLoggedIn, setIsLoggedIn, userData, setUserData, logout } =
     useAuth(); // ye context folder sy h jo hum ny banaya h khud sy sy h
   const [userdata, setUserdata] = useState({}); // ye google auth sy data aya h
   // const { setIsLoggedIn, setUserData } = useAuth();
-  console.log("header mey", isLoggedIn);
-  console.log("header mey", userData);
+  // console.log("header mey", isLoggedIn);
+  // console.log("header mey", userData);
   // console.log("response", userdata);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchVisible, setIsSearchVisible] = useState(false);
@@ -84,8 +85,8 @@ const Header = () => {
   // useEffect(() => {
   //   getUser();
   // }, []);
-  console.log("userdata:", userdata);
-  console.log("userData:", userData);
+  // console.log("userdata:", userdata);
+  // console.log("userData:", userData);
 
   // if (isLoggedIn) {
   //   userDataToPass = userData; // ye normal login k liye
@@ -93,9 +94,9 @@ const Header = () => {
   //   userDataToPass = userdata; // ye jab sign in with google select kary ga
   // }
   const userDataToPass = isLoggedIn ? userData : userdata;
-  console.log("userDataToPass: ", userDataToPass);
+  // console.log("userDataToPass: ", userDataToPass);
 
-  const serverAddress = "http://localhost:8080";
+  const serverAddress = "http://localhost:4000";
 
   const imageURL = (() => {
     if (!userData?.image) {
@@ -145,7 +146,7 @@ const Header = () => {
           >
             <FontAwesomeIcon icon={isMenuOpen ? faTimes : faBars} />
           </div>
-          <Link to="/">
+          <Link to="/" style={{ textDecoration: "none" }}>
             <div className="logo">Farm to Table</div>
           </Link>
         </div>
@@ -242,10 +243,27 @@ const Header = () => {
 
           <ul className="sidebar-links">
             <li>
-              <Link to="/sellerRegister" onClick={toggleMenu}>
-                Become a Seller
-              </Link>
+              {userData?.role === "seller" ? (
+                <>
+                  <img
+                    src={imageURL}
+                    style={{
+                      width: "30px",
+                      height: "30px",
+                      borderRadius: "50%",
+                      marginRight: "20px",
+                    }}
+                    alt="userimage"
+                  />
+                  <span style={{ color: "white" }}> {userData?.name}</span>
+                </>
+              ) : (
+                <Link to="/sellerRegister" onClick={toggleMenu}>
+                  Become a Seller
+                </Link>
+              )}
             </li>
+
             <li>
               <Link to="/myProducts" onClick={toggleMenu}>
                 Manage Your Listings

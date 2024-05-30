@@ -42,7 +42,7 @@ const ResetOTP = () => {
     setTimeLeft(60); // Reset the countdown timer
 
     try {
-      axios.post("http://localhost:8080/send_recovery_email", {
+      axios.post("http://localhost:4000/send_recovery_email", {
         OTP: otp,
         recipient_email: email,
       });

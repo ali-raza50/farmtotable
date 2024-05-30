@@ -7,6 +7,7 @@ import hero2 from "../img/hero2.png";
 import hero3 from "../img/hero3.png";
 import hero4 from "../img/hero4.png";
 import hero5 from "../img/hero5.png";
+import { Link } from "react-router-dom";
 
 const HeroArea = () => {
   // Array of image URLs
@@ -15,12 +16,12 @@ const HeroArea = () => {
     {
       title: "Welcome to Farm to Table",
       description:
-        "Discover fresh, locally sourced produce straight from our farm to your table. We believe in sustainable farming practices and bringing you the best quality food.",
+        "We have trained a special model which will predict breeds and prices of goats",
     },
     {
-      title: "Farm Fresh Delicacies",
+      title: "Healthy and Nutritious",
       description:
-        "Indulge in the goodness of farm-fresh produce. From fruits and vegetables to dairy and meats, we offer a wide range of delicious options for you and your family.",
+        "Eating healthy has never been easier with our selection of nutritious foods. From organic fruits and veggies to grass-fed meats, we prioritize your health and well-being.",
     },
     {
       title: "Support Local Farmers",
@@ -28,9 +29,9 @@ const HeroArea = () => {
         "By choosing Farm to Table, you're supporting local farmers and their communities. We work closely with small-scale farmers to bring you the freshest ingredients.",
     },
     {
-      title: "Healthy and Nutritious",
+      title: "Join the Farming Revolution",
       description:
-        "Eating healthy has never been easier with our selection of nutritious foods. From organic fruits and veggies to grass-fed meats, we prioritize your health and well-being.",
+        "Be a part of the farming revolution with Farm to Table. Embrace sustainable practices and enjoy delicious, wholesome food that nourishes your body and soul.",
     },
     {
       title: "Connect with Nature",
@@ -53,7 +54,7 @@ const HeroArea = () => {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === images.length - 1 ? 0 : prevIndex + 1
       );
-    }, 3000);
+    }, 100000);
 
     return () => {
       clearInterval(intervalId); // Clean up interval on component unmount
@@ -88,20 +89,21 @@ const HeroArea = () => {
                     {texts[index].title}
                   </h2>
                   <p
-                    className={`description ${
+                    className={`text-black text-lg description ${
                       index === currentImageIndex ? "slide-in-bottom" : ""
                     }`}
                   >
                     {texts[index].description}
                   </p>
-                  <a
-                    href="#"
+                  <Link
+                    style={{ textDecoration: "none" }}
+                    to="/contact"
                     className={`btn famie-btn mt-4 ${
                       index === currentImageIndex ? "slide-in-bottom" : ""
                     }`}
                   >
                     Contact Us
-                  </a>
+                  </Link>
                 </div>
               </div>
             </div>

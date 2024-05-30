@@ -22,18 +22,18 @@ const Login = () => {
 
   const loginwithgoogle = () => {
     console.log("mery andhar hns");
-    window.open("http://localhost:8080/auth/google/callback", "_self");
+    window.open("http://localhost:4000/auth/google/callback", "_self");
     getUser();
   };
 
   const getUser = async () => {
     console.log("running");
     try {
-      const response = await axios.get("http://localhost:8080/login/sucess", {
+      const response = await axios.get("http://localhost:4000/login/sucess", {
         withCredentials: true,
       });
-      console.log("getuser data called");
-      setUserData(response.data.user);
+      console.log("getuser data called", response.userData);
+      setUserData(response.data);
       setIsLoggedIn(true);
     } catch (error) {
       console.log("error", error);
@@ -44,20 +44,20 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
   function nagigateToOtp() {
-    if (email) {
-      const OTP = Math.floor(Math.random() * 9000 + 1000);
-      console.log(OTP);
-      // setOTP(OTP);
-      toast.info("Please check your email for otp");
-      axios
-        .post("http://localhost:8080/send_recovery_email", {
-          OTP,
-          recipient_email: email,
-        })
-        .then(() => navigate("/resetOtp", { state: { email: email } }))
-        .catch(console.log);
-      return;
-    }
+    // if (email) {
+    //   const OTP = Math.floor(Math.random() * 9000 + 1000);
+    //   console.log(OTP);
+    //   // setOTP(OTP);
+    //   toast.info("Please check your email for otp");
+    //   axios
+    //     .post("http://localhost:4000/send_recovery_email", {
+    //       OTP,
+    //       recipient_email: email,
+    //     })
+    //     .then(() => navigate("/resetOtp", { state: { email: email } }))
+    //     .catch(console.log);
+    //   return;
+    // }
     return toast.error("Please enter your email");
   }
 
@@ -66,12 +66,15 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      const response = await axios.post("http://localhost:8080/api/v1/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "http://localhost:4000/api/users/login",
+        {
+          email,
+          password,
+        }
+      );
       // Assuming the API returns a success message or similar
-      console.log("login data check", response.data);
+      console.log("login data check", response);
       // Assuming the API returns user data upon successful login
       const userData = response.data.user;
       console.log("user data check in login page", userData);

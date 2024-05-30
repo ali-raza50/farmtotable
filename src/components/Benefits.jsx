@@ -3,6 +3,11 @@ import { Container, Row, Col } from "react-bootstrap";
 import "../Styles/benefits.css";
 import farmimg from "../img/farmimg.png";
 import digger from "../img/digger.png";
+import dairyproduct from "../img/dairyproduct.png";
+import animalicon1 from "../img/animalicon1.png";
+import milkServices from "../img/milkServices.png";
+import detetcBreed from "../img/detetcBreed.png";
+import predictPrice from "../img/predictPrice.png";
 import { Link } from "react-router-dom";
 
 const Benefits = () => {
@@ -31,13 +36,29 @@ const Benefits = () => {
         <Row className="justify-content-center">
           <Col xs={12} sm={4} lg>
             <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
-              <img src={digger} alt="" />
+              <img
+                src={predictPrice}
+                alt=""
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  borderRadius: "50%",
+                }}
+              />
               <h5>Predict Price</h5>
             </div>
           </Col>
           <Col xs={12} sm={4} lg>
             <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
-              <img src={digger} alt="" />
+              <img
+                src={detetcBreed}
+                alt=""
+                style={{
+                  width: "100px",
+                  height: "100px",
+                  borderRadius: "50%",
+                }}
+              />
               <h5>Detect Breed</h5>
             </div>
           </Col>
@@ -48,7 +69,15 @@ const Benefits = () => {
               style={{ textDecoration: "none", color: "black" }}
             >
               <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
-                <img src={digger} alt="" />
+                <img
+                  src={dairyproduct}
+                  alt=""
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                  }}
+                />
                 <h5>Dairy Products</h5>
               </div>
             </Link>
@@ -60,7 +89,15 @@ const Benefits = () => {
               style={{ textDecoration: "none", color: "black" }}
             >
               <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
-                <img src={digger} alt="" />
+                <img
+                  src={animalicon1}
+                  alt=""
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                  }}
+                />
                 <h5>Animals</h5>
               </div>
             </Link>
@@ -72,7 +109,15 @@ const Benefits = () => {
               style={{ textDecoration: "none", color: "black" }}
             >
               <div className="single-benefits-area wow mb-50 d-flex flex-column align-items-center">
-                <img src={digger} alt="" />
+                <img
+                  src={milkServices}
+                  alt=""
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "50%",
+                  }}
+                />
                 <h5>Milk Services</h5>
               </div>
             </Link>

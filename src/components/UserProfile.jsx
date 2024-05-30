@@ -11,7 +11,7 @@ export default function UserProfile() {
   const userEmail = userData ? userData.email : "";
   const userName = userData ? userData.name : "";
   const image = userData ? userData.image : "";
-  const serverAddress = "http://localhost:8080";
+  const serverAddress = "http://localhost:4000";
   const imageURL = userData?.image
     ? `${serverAddress}/${userData.image.replace(/\\/g, "/")}`
     : "";

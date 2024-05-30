@@ -48,9 +48,9 @@ const ServicesArea = () => {
           <div className="row">
             <div className="col-12">
               <div className="section-heading">
-                <p>What we do</p>
+                <p style={{ color: "black" }}>What we do</p>
                 <h2>
-                  <span>Our Produce</span> Is Mainstay For Us
+                  <span>Our Produce</span> Is Essential For Us
                 </h2>
                 <img src={deco} alt="" />
               </div>
@@ -59,11 +59,11 @@ const ServicesArea = () => {
           <div className="row">
             <div className="col-12 mb-4">
               <p>
-                Mauris fermentum nunc quis massa lacinia consequat. Suspendisse
-                orci magna, pharetra sedonia risus ut, elementum mollis nisin.
-                Nunc in sapien turpis. Donec egeto david orci pulvinar ultrices
-                necto drax turpis. Pellentesque justo metus, semper nec
-                ullamcorper id, gravida ultricies arcu.
+                Our project boasts a range of essential features catering to
+                dairy enthusiasts. From managing milk subscriptions to exploring
+                a variety of dairy products, predicting prices, and accessing
+                expert consultations, our platform offers a comprehensive
+                solution for all dairy-related needs.
               </p>
             </div>
             <div className="col-lg-6">
@@ -73,8 +73,8 @@ const ServicesArea = () => {
                   <h5 className="ml-3">Milk Subscription</h5>
                 </div>
                 <p>
-                  Intiam eu sagittis est, aster cosmo lacini libero. Praesent
-                  dignissim sed odio velo aliquam manta legolas.
+                  Milk subscription offers convenience and freshness. Enjoy
+                  doorstep delivery of your favorite dairy products.
                 </p>
               </div>
               <div className="single-service-area mb-4">
@@ -83,8 +83,9 @@ const ServicesArea = () => {
                   <h5 className="ml-3">Price prediction</h5>
                 </div>
                 <p>
-                  Intiam eu sagittis est, aster cosmo lacini libero. Praesent
-                  dignissim sed odio velo aliquam manta legolas.
+                  Stay ahead with price prediction. Make informed decisions
+                  based on accurate forecasts. Anticipate market trends and
+                  fluctuations
                 </p>
               </div>
             </div>
@@ -95,8 +96,8 @@ const ServicesArea = () => {
                   <h5 className="ml-3">Dairy Products</h5>
                 </div>
                 <p>
-                  Intiam eu sagittis est, aster cosmo lacini libero. Praesent
-                  dignissim sed odio velo aliquam manta legolas.
+                  Explore a wide range of dairy products for your needs. From
+                  fresh milk to artisanal cheeses, we offer quality and variety.
                 </p>
               </div>
               <div className="single-service-area mb-4">
@@ -105,8 +106,9 @@ const ServicesArea = () => {
                   <h5 className="ml-3">Consultation</h5>
                 </div>
                 <p>
-                  Intiam eu sagittis est, aster cosmo lacini libero. Praesent
-                  dignissim sed odio velo aliquam manta legolas.
+                  Get expert consultation tailored to your needs. Our team of
+                  experienced professionals is here to guide you through every
+                  step of your journey.
                 </p>
               </div>
             </div>

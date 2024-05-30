@@ -1,49 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom"; // Assuming you're using react-router for navigation
 import "../Styles/sellerproduct.css";
 import Header from "./Header";
 import Footer from "./Footer";
+import axios from "axios";
+import { useAuth } from "./context/AuthContext";
 const MySellerProduct = () => {
-  const products = [
-    {
-      id: 1,
-      name: "Jane Cooper",
-      title: "Regional Paradigm Technician",
-      status: "Active",
-      role: "Admin",
-      email: "jane.cooper@example.com",
-      imageUrl: "https://i.pravatar.cc/150?img=1",
-    },
-    {
-      id: 1,
-      name: "Jane Cooper",
-      title: "Regional Paradigm Technician",
-      status: "Active",
-      role: "Admin",
-      email: "jane.cooper@example.com",
-      imageUrl: "https://i.pravatar.cc/150?img=1",
-    },
-    {
-      id: 1,
-      name: "Jane Cooper",
-      title: "Regional Paradigm Technician",
-      status: "Active",
-      role: "Admin",
-      email: "jane.cooper@example.com",
-      imageUrl: "https://i.pravatar.cc/150?img=1",
-    },
-    {
-      id: 1,
-      name: "Jane Cooper",
-      title: "Regional Paradigm Technician",
-      status: "Active",
-      role: "Admin",
-      email: "jane.cooper@example.com",
-      imageUrl: "https://i.pravatar.cc/150?img=1",
-    },
-    // Add more products as needed
-  ];
+  const [products, setProducts] = useState([]);
+  const { userData } = useAuth();
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:4000/api/Dairyproducts/getallProducts"
+        );
+        setProducts(response.data);
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
 
+    fetchProducts();
+  }, []);
+  const handleDelete = async (itemId) => {
+    try {
+      // Send DELETE request to the backend endpoint
+      await axios.delete(
+        `http://localhost:4000/api/Dairyproducts/deleteDairy/${itemId}`
+      );
+      // Call the onDelete callback to update the UI
+
+      alert("Item deleted successfully.");
+      window.location.reload();
+    } catch (error) {
+      console.error("Error deleting product:", error);
+    }
+  };
   return (
     <>
       <Header />
@@ -72,25 +64,25 @@ const MySellerProduct = () => {
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Title
+                Price
               </th>
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Status
+                Weight
               </th>
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Role
+                Stock
               </th>
               <th
                 scope="col"
                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
               >
-                Email
+                Submitted By
               </th>
               <th
                 scope="col"
@@ -102,50 +94,49 @@ const MySellerProduct = () => {
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {products.map((product) => (
-              <tr key={product.id}>
+              <tr key={product._id}>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center">
                     <div className="flex-shrink-0 h-10 w-10">
-                      <img
-                        className="h-10 w-10 rounded-full"
-                        src={product.imageUrl}
-                        alt={product.name}
-                      />
+                      {product.images.length > 0 && (
+                        <img
+                          className="h-10 w-10 rounded-full"
+                          src={`http://localhost:4000/uploads/${product.images[0]}`}
+                          alt={product.name}
+                        />
+                      )}
                     </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
                         {product.name}
                       </div>
-                      <div className="text-sm text-gray-500">
-                        {product.email}
-                      </div>
                     </div>
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-900">{product.title}</div>
-                  <div className="text-sm text-gray-500">Optimization</div>
+                  <div className="text-sm text-gray-900">{product.price}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    {product.status}
-                  </span>
+                  <div className="text-sm text-gray-900">{product.weight}</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {product.role}
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-900">{product.stock}</div>
                 </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {product.email}
+                <td className="px-6 py-4 whitespace-nowrap">
+                  <div className="text-sm text-gray-900">
+                    {product.submittedBy}
+                  </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                   <Link
-                    to="/editProduct"
+                    to={`/editProduct/${product._id}`}
                     className="text-indigo-600 hover:text-indigo-900"
                   >
                     Edit
                   </Link>
                   <Link
-                    to="/deleteProduct"
+                    // to={`/deleteProduct/${}`}
+                    onClick={() => handleDelete(product._id)}
                     className="ml-2 text-red-600 hover:text-red-900"
                   >
                     Delete
@@ -156,6 +147,7 @@ const MySellerProduct = () => {
           </tbody>
         </table>
       </div>
+
       <Footer />
     </>
   );

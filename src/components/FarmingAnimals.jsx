@@ -2,47 +2,49 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCow } from "@fortawesome/free-solid-svg-icons";
 import decor2 from "../img/decor2.png";
-import cow from "../img/cow.png"; // Ensure this path is correct
-import "../Styles/farmingAnimal.css"; // Ensure this path is correct
+import cow from "../img/cow.png";
+import chicken from "../img/chicken.png";
+import goatreverd from "../img/goatreverd.png";
+import "../Styles/farmingAnimal.css";
 
 const FarmingAnimal = () => {
   const farmingPractices = [
     {
       icon: faCow,
       title: "Chicken Farmed For Meat",
-      description: "Donec nec justo eget felis facilisis fermentum...",
-      imageUrl: cow,
+      description: "Fresh chicken with good quality...",
+      imageUrl: chicken,
     },
     {
       icon: faCow,
-      title: "Chicken Farmed For Meat",
-      description: "Donec nec justo eget felis facilisis fermentum...",
-      imageUrl: cow,
+      title: "Pakistani Goats",
+      description: "Pakistani goats prized for meat quality....",
+      imageUrl: goatreverd,
     },
     {
       icon: faCow,
-      title: "Chicken Farmed For Meat",
-      description: "Donec nec justo eget felis facilisis fermentum...",
+      title: "Beef Cattle Farming",
+      description: "Beef cattle farming involves raising cattle ....",
       imageUrl: cow,
     },
-    {
-      icon: faCow,
-      title: "Chicken Farmed For Meat",
-      description: "Donec nec justo eget felis facilisis fermentum...",
-      imageUrl: cow,
-    },
-    {
-      icon: faCow,
-      title: "Chicken Farmed For Meat",
-      description: "Donec nec justo eget felis facilisis fermentum...",
-      imageUrl: cow,
-    },
-    {
-      icon: faCow,
-      title: "Chicken Farmed For Meat",
-      description: "Donec nec justo eget felis facilisis fermentum...",
-      imageUrl: cow,
-    },
+    // {
+    //   icon: faCow,
+    //   title: "Chicken Farmed For Meat",
+    //   description: "Donec nec justo eget felis facilisis fermentum...",
+    //   imageUrl: cow,
+    // },
+    // {
+    //   icon: faCow,
+    //   title: "Chicken Farmed For Meat",
+    //   description: "Donec nec justo eget felis facilisis fermentum...",
+    //   imageUrl: cow,
+    // },
+    // {
+    //   icon: faCow,
+    //   title: "Chicken Farmed For Meat",
+    //   description: "Donec nec justo eget felis facilisis fermentum...",
+    //   imageUrl: cow,
+    // },
     // Repeat for other practices, modifying as necessary
   ];
 

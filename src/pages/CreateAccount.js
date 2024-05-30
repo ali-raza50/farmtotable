@@ -13,7 +13,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAuth } from "../components/context/AuthContext";
 const CreateAccount = () => {
   let navigate = useNavigate();
-  const { setIsLoggedIn, setUserData } = useAuth();
+  const { setIsLoggedIn, userData, setUserData } = useAuth();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -24,17 +24,17 @@ const CreateAccount = () => {
   const [image, setImage] = useState(null); // State to hold the selected profile photo
   const loginwithgoogle = () => {
     console.log("mery andhar hns");
-    window.open("http://localhost:8080/auth/google/callback", "_self");
+    window.open("http://localhost:4000/auth/google/callback", "_self");
     getUser();
   };
 
   const getUser = async () => {
     console.log("running");
     try {
-      const response = await axios.get("http://localhost:8080/login/sucess", {
+      const response = await axios.get("http://localhost:4000/login/sucess", {
         withCredentials: true,
       });
-      console.log("getuser data called");
+      console.log("response in getuser data called", response);
       setUserData(response.data.user);
       setIsLoggedIn(true);
     } catch (error) {
@@ -67,7 +67,7 @@ const CreateAccount = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/signup",
+        "http://localhost:4000/api/users/register",
         formData,
         {
           headers: {
@@ -75,8 +75,9 @@ const CreateAccount = () => {
           },
         }
       );
+      console.log("response in create account for you", response);
       // Assuming the API returns a success message or similar
-      console.log(response.data.message);
+      // console.log(response.data.message);
       // Navigate to another route upon success. Adjust the route as necessary.
       setUserData(response.data.user);
       setIsLoggedIn(true);
@@ -113,10 +114,10 @@ const CreateAccount = () => {
             <Link
               onClick={loginwithgoogle}
               to=""
-              class="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
+              className="flex items-center justify-center mt-4 text-white rounded-lg shadow-md hover:bg-gray-100"
             >
-              <div class="px-4 py-3">
-                <svg class="h-6 w-6" viewBox="0 0 40 40">
+              <div className="px-4 py-3">
+                <svg className="h-6 w-6" viewBox="0 0 40 40">
                   <path
                     d="M36.3425 16.7358H35V16.6667H20V23.3333H29.4192C28.045 27.2142 24.3525 30 20 30C14.4775 30 10 25.5225 10 20C10 14.4775 14.4775 9.99999 20 9.99999C22.5492 9.99999 24.8683 10.9617 26.6342 12.5325L31.3483 7.81833C28.3717 5.04416 24.39 3.33333 20 3.33333C10.7958 3.33333 3.33335 10.7958 3.33335 20C3.33335 29.2042 10.7958 36.6667 20 36.6667C29.2042 36.6667 36.6667 29.2042 36.6667 20C36.6667 18.8825 36.5517 17.7917 36.3425 16.7358Z"
                     fill="#FFC107"
@@ -135,7 +136,7 @@ const CreateAccount = () => {
                   />
                 </svg>
               </div>
-              <h6 class="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
+              <h6 className="px-4 py-3 w-5/6 text-center text-gray-600 font-bold">
                 Sign in with Google
               </h6>
             </Link>

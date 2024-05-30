@@ -5,6 +5,7 @@ import desighee from "../img/desighee.png";
 import butter from "../img/butter.png";
 import "../Styles/products.css";
 import { FaShoppingCart, FaHeart } from "react-icons/fa";
+import { Link } from "react-router-dom";
 const Products = () => {
   return (
     <section
@@ -46,7 +47,7 @@ const Products = () => {
                     <FaHeart />
                   </a>
                   <a
-                    href="/"
+                    href="/cart"
                     data-toggle="tooltip"
                     data-placement="top"
                     title="Add To Cart"
@@ -179,9 +180,13 @@ const Products = () => {
               className="gotoshop-btn text-center wow fadeInUp"
               data-wow-delay="900ms"
             >
-              <a href="shop.html" class="btn famie-btn">
+              <Link
+                style={{ textDecoration: "none" }}
+                to="/dairyProducts"
+                className="btn famie-btn "
+              >
                 Go to Store
-              </a>
+              </Link>
             </div>
           </div>
         </div>

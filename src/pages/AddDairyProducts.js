@@ -4,35 +4,88 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import SuccessMessage from "../components/SuccessMessage";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../components/context/AuthContext";
+import axios from "axios";
 
 const AddProductForm = () => {
   const navigate = useNavigate();
-  const [productName, setProductName] = useState("");
-  const [productImages, setProductImages] = useState([]);
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
-  const [additionalDescription, setAdditionalDescription] = useState("");
+  const { userData } = useAuth();
+  const [weight, setWeight] = useState();
+  const [price, setPrice] = useState();
+  const [stock, setStock] = useState();
+  const [name, setName] = useState();
+  const [images, setImages] = useState([]);
+  const [additional_description, setAdditionalDescription] = useState();
+
+  const handleClick = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    console.log("this was clicked");
+    formData.append("price", price);
+
+    formData.append("stock", stock);
+    formData.append("weight", weight);
+    formData.append("name", name);
+    formData.append("additional_description", additional_description);
+
+    formData.append("submittedBy", userData._id);
+    console.log(images);
+    for (let i = 0; i < images.length; i++) {
+      formData.append("images", images[i]);
+    }
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`); // Here you will see all your FormData's key-value pairs
+    }
+    console.log(formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:4000/api/Dairyproducts/addDairy",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      console.log("response in create account for you", response);
+      alert("product added successfuly");
+      // navigate("/otpPage"); // Adjust the route as necessary
+    } catch (error) {
+      console.error(" error:", error.response.data);
+    }
+  };
+  const handleFileChange = (e) => {
+    const selectedFiles = Array.from(e.target.files);
+    setImages([...images, ...selectedFiles]);
+    console.log("this ran");
+  };
+
+  // const [productName, setProductName] = useState("");
+  // const [productImages, setProductImages] = useState([]);
+  // const [quantity, setQuantity] = useState("");
+  // const [price, setPrice] = useState("");
+  // const [additionalDescription, setAdditionalDescription] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [message, setMessage] = useState({});
-  const handleProductNameChange = (e) => {
-    setProductName(e.target.value);
-  };
+  // const handleProductNameChange = (e) => {
+  //   setProductName(e.target.value);
+  // };
 
-  const handleProductImagesChange = (images) => {
-    setProductImages(images);
-  };
+  // const handleProductImagesChange = (images) => {
+  //   setProductImages(images);
+  // };
 
-  const handleQuantity = (e) => {
-    setQuantity(e.target.value);
-  };
+  // const handleQuantity = (e) => {
+  //   setQuantity(e.target.value);
+  // };
 
-  const handlePriceChange = (e) => {
-    setPrice(e.target.value);
-  };
+  // const handlePriceChange = (e) => {
+  //   setPrice(e.target.value);
+  // };
 
-  const handleAdditionalDescriptionChange = (e) => {
-    setAdditionalDescription(e.target.value);
-  };
+  // const handleAdditionalDescriptionChange = (e) => {
+  //   setAdditionalDescription(e.target.value);
+  // };
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -71,7 +124,7 @@ const AddProductForm = () => {
         </div>
 
         <div className="p-6 space-y-6">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleClick}>
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
                 <label
@@ -85,27 +138,30 @@ const AddProductForm = () => {
                   id="productName"
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="Product Name"
-                  value={productName}
-                  onChange={handleProductNameChange}
+                  // value={productName}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                  }}
                   required
                 />
               </div>
 
               <div className="col-span-6 sm:col-span-3">
                 <label
-                  htmlFor="Quantity"
+                  htmlFor="stock"
                   className="text-sm font-medium text-gray-900 block mb-2"
                 >
-                  Quantity
+                  Stock (units)
                 </label>
                 <input
                   type="number"
-                  id="quantity"
+                  id="stock"
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                  placeholder="quantity"
+                  placeholder="Stock"
                   min="0" // Ensure non-negative value
                   required
-                  onChange={handleQuantity}
+                  value={stock}
+                  onChange={(e) => setStock(e.target.value)}
                 />
               </div>
 
@@ -122,30 +178,69 @@ const AddProductForm = () => {
                   className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                   placeholder="Price"
                   value={price}
-                  onChange={handlePriceChange}
+                  onChange={(e) => {
+                    setPrice(e.target.value);
+                  }}
                   min="0" // Ensure non-negative value
                   required
                 />
               </div>
+              <div className="col-span-6 sm:col-span-3">
+                <label
+                  htmlFor="selectWeight"
+                  className="text-sm font-medium text-gray-900 block mb-2"
+                >
+                  Select Weight
+                </label>
+                <select
+                  id="selectWeight"
+                  name="weight"
+                  className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                  required
+                  value={weight}
+                  onChange={(e) => setWeight(e.target.value)}
+                >
+                  <option value="">Select Weight</option>
+                  <option value="1kg">1kg</option>
+                  <option value="2kg">2kg</option>
+                  <option value="3kg">3kg</option>
+                </select>
+              </div>
 
               <div className="col-span-6 sm:col-span-3">
                 <label
-                  htmlFor="additionalDescription"
+                  htmlFor="additional_description"
                   className="text-sm font-medium text-gray-900 block mb-2"
                 >
                   Additional Description
                 </label>
                 <textarea
-                  id="additionalDescription"
+                  id="additional_description"
                   rows="1"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-4"
                   placeholder="Additional Description"
-                  value={additionalDescription}
-                  onChange={handleAdditionalDescriptionChange}
+                  value={additional_description}
+                  onChange={(e) => {
+                    setAdditionalDescription(e.target.value);
+                    console.log(additional_description);
+                  }}
                   required
                 ></textarea>
               </div>
-              <div className="col-span-6 sm:col-span-3 mb-4">
+              <div className="form-group">
+                <label htmlFor="image">Image (multiple allowed):</label>
+                <input
+                  type="file"
+                  id="image"
+                  name="images"
+                  className="form-input"
+                  multiple
+                  required
+                  onChange={handleFileChange}
+                />
+              </div>
+
+              {/* <div className="col-span-6 sm:col-span-3 mb-4">
                 <label
                   htmlFor="image"
                   className="text-sm font-medium text-gray-900 block mb-2"
@@ -153,7 +248,7 @@ const AddProductForm = () => {
                   Image
                 </label>
                 <UploadImages onChange={handleProductImagesChange} />
-              </div>
+              </div> */}
             </div>
             <div className="p-6 border-t border-gray-200 rounded-b">
               <button

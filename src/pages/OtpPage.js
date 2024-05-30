@@ -6,12 +6,14 @@ import Footer from "../components/Footer";
 import Spinner from "../components/Spinner";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useAuth } from "../components/context/AuthContext";
 
 const OTPForm = () => {
   const [timeLeft, setTimeLeft] = useState(60); // Countdown time in seconds
   const [otp, setOtp] = useState(Array(4).fill("")); // OTP state
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { userData } = useAuth();
 
   const totalTime = 60;
   // Effect for countdown timer
@@ -41,12 +43,13 @@ const OTPForm = () => {
     setIsLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/verifyOtp",
+        "http://localhost:4000/api/users/verifyOtp",
         {
           otp: otp.join(""),
+          email: userData.email,
         }
       );
-      console.log(response.data);
+      // console.log(response.data);
       toast.success("OTP Verification");
       setTimeout(() => {
         navigate("/"); // Adjust the route as necessary

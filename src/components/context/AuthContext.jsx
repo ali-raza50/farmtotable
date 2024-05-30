@@ -3,6 +3,7 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  // Define default initial states
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userData, setUserData] = useState(null);
 
@@ -13,20 +14,30 @@ export const AuthProvider = ({ children }) => {
 
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
+    } else {
+      setUserData(null); // Explicitly set to null if nothing in local storage
     }
+
     if (storedIsLoggedIn) {
       setIsLoggedIn(JSON.parse(storedIsLoggedIn));
+    } else {
+      setIsLoggedIn(false); // Explicitly set to false if nothing in local storage
     }
   }, []);
 
   // Update local storage when user data or login status changes
   useEffect(() => {
-    localStorage.setItem("userData", JSON.stringify(userData));
+    if (userData) {
+      localStorage.setItem("userData", JSON.stringify(userData));
+    } else {
+      localStorage.removeItem("userData"); // Clear if userData is null
+    }
   }, [userData]);
 
   useEffect(() => {
     localStorage.setItem("isLoggedIn", JSON.stringify(isLoggedIn));
   }, [isLoggedIn]);
+
   const logout = () => {
     setIsLoggedIn(false);
     setUserData(null);
@@ -34,6 +45,7 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem("userData");
     localStorage.removeItem("isLoggedIn");
   };
+
   return (
     <AuthContext.Provider
       value={{ isLoggedIn, userData, setIsLoggedIn, setUserData, logout }}
